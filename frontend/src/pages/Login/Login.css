@@ -1,0 +1,95 @@
+.login-screen {
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.left-login img {
+    height: 99vh;
+    width: 55vw;
+    padding: 0px;
+}
+
+.right-login-container {
+    margin: auto;
+    max-width: 450px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.right-login {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.right-login h3 {
+    margin-bottom: 5px;
+    font-size: 40px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.right-login p {
+    font-size: 20px;
+    margin-bottom: 45px;
+}
+
+label {
+    display: flex;
+    color: grey;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+input {
+    height: 50px;
+    width: 450px;
+    transition: border-color 0.3s ease;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    margin-bottom: 5px;
+}
+
+input:focus {
+    border: 2px solid #a9d5fe;
+}
+
+.form-group {
+    margin-bottom: 40px;
+}
+
+.login-button {
+    background-color: #E8A0BF;
+    color: black;
+    border: none;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 20px;
+    width: 400px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #BE5985;
+    color: white;
+}
+
+.forgot-password {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}

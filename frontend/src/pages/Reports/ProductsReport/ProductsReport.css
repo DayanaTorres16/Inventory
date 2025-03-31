@@ -1,0 +1,30 @@
+.products-report-container {
+ padding-left: 20px;
+ padding-right: 20px;
+}
+.products-report-titule h2{
+    font-size: 45px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-weight: 400;
+
+  }
+
+.products-reports-grid {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 20px;
+}
+
+.row-tables {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+    gap: 20px;
+}
+
+.row-charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}

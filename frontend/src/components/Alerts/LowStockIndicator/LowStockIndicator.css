@@ -1,0 +1,14 @@
+.stock-indicator {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 5px;
+    background-color: transparent;
+}
+
+.stock-indicator-critical {
+    color: red;
+}
+
+.stock-indicator-low {
+    color: rgb(215, 97, 0);
+}

@@ -1,0 +1,76 @@
+.sales-by-period-container {
+    width: 550px;
+    max-height: 340px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding-bottom: 10px;
+}
+
+.sales-by-period-container h2 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.best-selling-products-container {
+    width: 540px;
+    height: auto;
+    padding: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.best-selling-products-container h2{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.high-rotation-products-chart-container {
+    width: 700px;
+    height: auto;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.best-selling-attributes-container {
+    width: 540px;
+    height: auto;
+    padding: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.low-rotation-chart-container {
+    width: auto;
+    height: 400px;
+    padding: 10px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.high-rotaction-chart-container {
+    width: 700px;
+    height: 400px;
+    padding: 10px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.expensive-chart-container{
+    width: 450px;
+    height: 300px;
+    margin: 20px auto;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cheap-chart-container{
+    width: 450px;
+    height: 300px;
+    margin: 20px auto;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.max-attributes-chart-container{
+    width: 450px;
+    height: 300px;
+    margin: 20px auto;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}

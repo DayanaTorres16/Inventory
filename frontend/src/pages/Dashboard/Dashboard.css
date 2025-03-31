@@ -1,0 +1,17 @@
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.dashboard-container img {
+    height: 95vh;
+}
+
+.dashboard-container h2 {
+    text-align: center;
+    align-items: end;
+    font-size: 35px;
+    color: #3338419f;
+}

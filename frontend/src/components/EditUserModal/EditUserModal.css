@@ -1,0 +1,95 @@
+.modal-overlay-edit-user {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-edit-user {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 460px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 500;
+}
+.text-edit-user {
+    color: #727272;
+    margin-bottom: 45px;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    color: gray;
+}
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 17px;
+    font-weight: 400;
+    color: black;
+}
+
+.input-group input {
+    width: calc(100% - 12px);
+    padding: 8px;
+    border: 1px solid #e1dfdfc2;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 50px;
+}
+
+.modal-footer button {
+    padding: 10px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.cancel-button {
+    background-color: #a3a2a2;
+    color: white;
+}
+
+.save-button {
+    background-color: #e28cb2;
+    color: white;
+}
+
+.modal-footer svg {
+    margin-right: 5px;
+}

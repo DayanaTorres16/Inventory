@@ -1,0 +1,22 @@
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 30px;
+    margin-left: 30px;
+}
+
+.search-icon {
+    margin-right: 8px;
+    color: #888;
+}
+
+.search-bar input {
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 500px;
+}

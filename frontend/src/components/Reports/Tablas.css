@@ -1,0 +1,65 @@
+.table-container {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(50, 50, 50, 0.1);
+    overflow: auto;
+    margin-top: 5px;
+    border: none;
+}
+
+.table-low-stock {
+    width: auto;
+    height: auto;
+}
+
+.table-header h2 {
+    margin-left: 10px;
+}
+
+.table-description {
+    color: #666;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.table-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.high-stock {
+    width: auto;
+    height: auto;
+    margin-bottom: 40px;
+}
+
+.high-stock h2 {
+    margin-left: 10px;
+}
+
+.table-low-rotation {
+    width: 95%;
+    height: auto;
+}
+
+.table-high-rotation {
+    width: 95%;
+    height: auto;
+}
+
+.table-max-attributes {
+    width: 95%;
+    height: auto;
+}
+
+.table-cheap {
+    width: 95%;
+    height: auto;
+}
+
+.table-expensive {
+    width: 95%;
+    height: auto;
+}

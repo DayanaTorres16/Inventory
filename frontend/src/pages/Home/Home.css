@@ -1,0 +1,32 @@
+.home-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 55px;
+}
+
+.home-container img {
+  height: 95vh;
+}
+
+.home-content {
+  display: block;
+  align-content: center;
+  text-align: center;
+  margin: auto;
+}
+
+.home-content h1 {
+  font-size: 80px;
+  color: #3D3D3D;
+  margin: 20px;
+}
+
+.home-content button {
+  height: 60px;
+  width: 200px;
+  border-radius: 10px;
+  font-size: 25px;
+  background-color: #E8A0BF;
+  color: #3D3D3D;
+  border-style: none;
+}

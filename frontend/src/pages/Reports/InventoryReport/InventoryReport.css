@@ -1,0 +1,12 @@
+.inventory-report-container {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.inventory-report-titule h2 {
+    font-size: 45px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-weight: 400;
+}

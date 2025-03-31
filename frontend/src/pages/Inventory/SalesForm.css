@@ -1,0 +1,218 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 300px;
+    margin-right: 300px;
+}
+
+.header-container svg {
+    margin-left: 10px;
+}
+
+.header-container h2 {
+    font-size: 40px;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.product-container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    margin-left: 350px;
+    margin-right: 350px;
+}
+
+.product-container h3 {
+    margin-top: 0;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.quantity-discount-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.quantity-container,
+.discount-container,
+.discounted-price-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.sales-form-container label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.sales-form-container input[type="number"],
+.sales-form-container input[type="text"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.sales-form-container input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    appearance: none;
+    background-color: #E8A0BF;
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+}
+
+.sales-form-container input[type="checkbox"]:checked::before {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+}
+
+.button-add-sale{
+    display: block;
+    margin: 5px auto 0;
+    width: 800px;
+    background-color: #E8A0BF;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.sales-form-container button:hover {
+    background-color: #BE5985;
+}
+
+.cart-items-container ul {
+    list-style: none;
+    padding: 0;
+    margin-left: 350px;
+    margin-right: 350px;
+}
+
+.cart-items-container li {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.sales-form-container p {
+    margin: 5px;
+    font-weight: bold;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.react-select__control {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 2px;
+    min-height: 20px;
+}
+
+.react-select__option--is-focused {
+    background-color: #f0f0f0;
+}
+
+react-select__option--is-selected {
+    background-color: #e0e0e0;
+}
+
+.total-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 350px;
+    margin-right: 350px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.total-label {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.total-label svg {
+    margin-right: 5px;
+    font-size: 20px;
+}
+
+.total-amount {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.divider {
+    border: none;
+    height: 1px;
+    background-color: #ddd;
+    margin: 0 20px 20px 20px;
+    box-shadow: #ccc;
+}
+
+.button-save-sale svg {
+    margin-right: 5px;
+}
+.button-save-sale {
+    display: block;
+    margin: 10px auto;
+    margin-bottom: 30px;
+    width: 800px;
+    background-color: #E8A0BF;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.stock-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.stock-error svg {
+    margin-right: 8px;
+}
+
+.stock-info {
+    color: #0c5460;
+    background-color: #D5E5D5;
+    border: 1px solid #D5E5D5;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 10px 0;
+}
+
+button:disabled {
+    background-color: #9a9999;
+    cursor: not-allowed;
+    opacity: 0.6;
+}

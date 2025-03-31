@@ -1,0 +1,20 @@
+.inventory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.inventory-header h1 {
+    font-size: 45px;
+    font-weight: 500;
+    margin-left: 35px;
+    margin-bottom: 10px;
+}
+
+.inventory-actions {
+    display: flex;
+    gap: 10px;
+}
+
+

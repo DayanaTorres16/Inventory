@@ -1,0 +1,18 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Forum&family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    margin: 0px;
+  font-family: 'Lora', serif; 
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lora', sans-serif; 
+}
+
+p {
+  font-family: 'Lora', serif; 
+}
+button{
+    font-family: 'Lora', serif;
+}
