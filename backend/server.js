@@ -14,7 +14,7 @@ const storesRouter = require('./routes/stores');
 const app = express();
 
 app.use(cors({
-    origin: "http://localhost:5174",
+    origin: "http://localhost:5175",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));

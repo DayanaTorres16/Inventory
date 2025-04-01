@@ -236,7 +236,7 @@ const ProductsTable = ({ productos, setProductos }) => {
                         />
                         {menuOpen.atributo.NOMBRE_ATRIBUTO}: {menuOpen.atributo.VALOR_ATRIBUTO}
                     </div>
-                    {selectedAttributeId !== null && <button onClick={handleActualDeleteAttribute}>Eliminar Atributo</button>}
+                    {selectedAttributeId !== null && <button onClick={handleActualDeleteAttribute} className="deleted-attribute-button" >Eliminar Atributo</button>}
                 </div>
             )}
         </div>
