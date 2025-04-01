@@ -45,7 +45,12 @@ const LowRotationAttributes = ({ storeId, dateRange }) => {
 
   return (
     <div className="table-container table-low-rotation">
-      <h2>Productos de Baja Rotación con Atributos</h2>
+      <div className="table-header">
+        <h2><FontAwesomeIcon icon={faCircleExclamation} style={{ color: 'Hotpink' }} /> Productos Baja Rotación</h2>
+      </div>
+      <p className="table-description">
+        Productos que no se estan vendiendo casi
+      </p>
       {productos.length > 0 ? (
         <table>
           <thead>
@@ -60,7 +65,7 @@ const LowRotationAttributes = ({ storeId, dateRange }) => {
             {productos.map((producto, index) => (
               <tr key={index}>
                 <td>
-                  <FontAwesomeIcon icon={faCircleExclamation} />
+                  <FontAwesomeIcon icon={faCircleExclamation} style={{ color: 'Hotpink' }}  />
                 </td>
                 <td>{producto.nombre_producto}</td>
                 <td>

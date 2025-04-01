@@ -68,7 +68,7 @@ const HighRotationProductsChart = ({ storeId, dateRange }) => {
 
   return (
     <div className="high-rotation-products-chart-container">
-      <h2>Productos de Alta Rotación</h2>
+      <h2>📉 Productos de Alta Rotación</h2>
       <Bar data={data} options={options} />
     </div>
   );

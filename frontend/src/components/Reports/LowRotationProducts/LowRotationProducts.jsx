@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../Tablas.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'; 
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 const LowRotationProducts = ({ storeId, dateRange }) => {
   const [productos, setProductos] = useState([]);
@@ -55,12 +55,17 @@ const LowRotationProducts = ({ storeId, dateRange }) => {
 
   return (
     <div className="table-container table-low-rotation">
-      <h2>Productos de Baja Rotación</h2>
+      <div className="table-header">
+        <h2><FontAwesomeIcon icon={faCircleExclamation} style={{ color: 'red' }}/> Productos Baja Rotación</h2>
+      </div>
+      <p className="table-description">
+        Productos que no se estan vendiendo casi
+      </p>
       {productos.length > 0 ? (
         <table>
           <thead>
             <tr>
-              <th></th> 
+              <th></th>
               <th>Nombre del Producto</th>
               <th>Cantidad Vendida</th>
             </tr>
@@ -68,7 +73,7 @@ const LowRotationProducts = ({ storeId, dateRange }) => {
           <tbody>
             {productos.map((producto, index) => (
               <tr key={index}>
-                <td><FontAwesomeIcon icon={faCircleExclamation} /></td> 
+                <td><FontAwesomeIcon icon={faCircleExclamation} style={{ color: 'red' }}  /></td>
                 <td>{producto.nombre_producto}</td>
                 <td>{producto.cantidad_vendida}</td>
               </tr>

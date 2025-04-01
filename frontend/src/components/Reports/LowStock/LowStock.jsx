@@ -35,8 +35,7 @@ const LowStock = ({ storeId }) => {
     return (
         <div className="table-container tabla-low-stock">
             <div className="table-header">
-                <FontAwesomeIcon icon={faExclamationTriangle} style={{ color: 'orange' }} />
-                <h2>Productos Bajos de Stock</h2>
+                <h2><FontAwesomeIcon icon={faExclamationTriangle} style={{ color: 'orange' }} />  Productos Bajos de Stock</h2>
             </div>
             <p className="table-description">
                 Productos que están por debajo del nivel mínimo recomendado
@@ -59,7 +58,7 @@ const LowStock = ({ storeId }) => {
                             return (
                                 <tr key={i}>
                                     <td>
-                                        <FontAwesomeIcon icon={faExclamationTriangle} style={{ color: 'red' }} />
+                                        <FontAwesomeIcon icon={faExclamationTriangle} style={{ color: 'orange' }} />
                                     </td>
                                     <td>{p.nombre_producto}</td>
                                     <td>

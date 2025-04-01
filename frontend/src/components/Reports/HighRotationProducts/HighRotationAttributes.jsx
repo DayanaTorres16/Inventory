@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../Tablas.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 const HighRotationAttributes = ({ storeId, dateRange }) => {
   const [productosAltaRotacion, setProductosAltaRotacion] = useState([]);
@@ -43,10 +45,19 @@ const HighRotationAttributes = ({ storeId, dateRange }) => {
 
   return (
     <div className="table-container table-high-rotation">
-      <h2>Productos de Alta Rotación con Atributos</h2>
+      <div className="table-header">
+        <h2>
+          <FontAwesomeIcon icon={faCartArrowDown} style={{ color: 'purple', marginRight: '8px' }} />
+          Productos Alta Rotación
+        </h2>
+      </div>
+      <p className="table-description">
+        Productos que se venden frecuentemente
+      </p>
       <table>
         <thead>
           <tr>
+            <th></th>
             <th>Producto</th>
             <th>Atributo: Valor</th>
             <th>Cantidad Vendida</th>
@@ -55,6 +66,9 @@ const HighRotationAttributes = ({ storeId, dateRange }) => {
         <tbody>
           {productosAltaRotacion.map((producto, index) => (
             <tr key={index}>
+              <td>
+                <FontAwesomeIcon icon={faCartArrowDown} style={{ color: 'purple', marginRight: '8px' }} />
+              </td>
               <td>{producto.nombre_producto}</td>
               <td>
                 {producto.atributo && producto.valor_atributo ? (

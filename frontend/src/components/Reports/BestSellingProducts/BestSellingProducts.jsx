@@ -51,7 +51,7 @@ const BestSellingProducts = ({ storeId, dateRange }) => {
 
   return (
     <div className="best-selling-products-container">
-      <h2>Productos Más Vendidos</h2>
+      <h2>📈 Productos Más Vendidos</h2>
       {hasData ? <Bar data={data} /> : <p>No hay productos vendidos en el rango seleccionado.</p>}
     </div>
   );

@@ -118,7 +118,7 @@ function SalesByPeriod({ storeId, dateRange }) {
 
   return (
     <div className="sales-by-period-container">
-      <h2>Ventas Totales por Período</h2>
+      <h2>📊 Ventas Totales por Período</h2>
       {ventas.length > 0 ? (
         <canvas 
           ref={canvasRef} 
