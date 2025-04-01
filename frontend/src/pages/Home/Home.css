@@ -3,24 +3,35 @@
   justify-content: space-between;
   margin-top: 55px;
 }
-
 .home-container img {
   height: 95vh;
 }
-
 .home-content {
   display: block;
   align-content: center;
   text-align: center;
   margin: auto;
 }
-
 .home-content h1 {
   font-size: 80px;
   color: #3D3D3D;
   margin: 20px;
+  position: relative;
+  overflow: hidden; 
+  white-space: nowrap;
 }
-
+.home-content h1 {
+  font-size: 80px;
+  color: #7c7c7c;
+  margin: 20px;
+  overflow: hidden;
+  white-space: nowrap; 
+  animation: typing 3s steps(20, end) forwards;
+}
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
 .home-content button {
   height: 60px;
   width: 200px;
@@ -29,4 +40,41 @@
   background-color: #E8A0BF;
   color: #3D3D3D;
   border-style: none;
+}
+.image-container {
+  position: relative; 
+  width: 50%;
+  height: 95vh;
+  overflow: hidden; 
+}
+.image-transition {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute; 
+  top: 0;
+  left: 0;
+  transition: opacity 1s ease-in-out; 
+  opacity: 0; 
+}
+.image-transition:nth-child(1) {
+  opacity: 1; 
+}
+.image-container img:nth-child(n + 1):nth-child(-n + 1){
+  opacity: 1;
+}
+.image-container img:nth-child(n + 2):nth-child(-n + 2){
+  opacity: 0;
+}
+.image-container img:nth-child(n + 3):nth-child(-n + 3){
+  opacity: 0;
+}
+.image-container img:nth-child(n + 4):nth-child(-n + 4){
+  opacity: 0;
+}
+.image-container img:nth-child(n + 5):nth-child(-n + 5){
+  opacity: 0;
+}
+.image-container img:nth-child(n + 6):nth-child(-n + 6){
+  opacity: 0;
 }
