@@ -16,6 +16,12 @@ const ProductsTable = ({ productos, setProductos }) => {
     const [deleteModal, setDeleteModal] = useState({ show: false, product: null });
     const [selectedAttributeId, setSelectedAttributeId] = useState(null);
     const menuRef = useRef(null);
+    const [userRole, setUserRole] = useState(null);
+
+    useEffect(() => {
+        const role = localStorage.getItem("userRole");
+        setUserRole(role);
+    }, []);
 
     const onOpenMenu = (producto, position, atributo) => {
         console.log("atributo en onOpenMenu:", atributo);
@@ -132,7 +138,7 @@ const ProductsTable = ({ productos, setProductos }) => {
                         <th>Precio</th>
                         <th>Atributos</th>
                         <th>Stock</th>
-                        <th>Acciones</th>
+                        {userRole === "admin" && <th>Acciones</th>}
                     </tr>
                 </thead>
                 <tbody>
@@ -172,19 +178,21 @@ const ProductsTable = ({ productos, setProductos }) => {
                                         "Sin Stock"
                                     )}
                                 </td>
-                                <td>
-                                    <button className="delete-table-button" onClick={() => setDeleteModal({ show: true, product: producto })}>
-                                        <FontAwesomeIcon icon={faTrashAlt} />
-                                    </button>
-                                    <button className="update-table-button" onClick={() => handleUpdateClick(producto)}>
-                                        <FontAwesomeIcon icon={faPencilAlt} />
-                                    </button>
-                                </td>
+                                {userRole === "admin" && (
+                                    <td>
+                                        <button className="delete-table-button" onClick={() => setDeleteModal({ show: true, product: producto })}>
+                                            <FontAwesomeIcon icon={faTrashAlt} />
+                                        </button>
+                                        <button className="update-table-button" onClick={() => handleUpdateClick(producto)}>
+                                            <FontAwesomeIcon icon={faPencilAlt} />
+                                        </button>
+                                    </td>
+                                )}
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="6">No hay productos disponibles</td>
+                            <td colSpan={userRole === "admin" ? "6" : "5"}>No hay productos disponibles</td>
                         </tr>
                     )}
                 </tbody>

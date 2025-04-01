@@ -72,26 +72,31 @@ const Navbar = () => {
             </div>
           )}
         </div>
-        <div className="navbar-dropdown" ref={(el) => (menuRefs.current.reports = el)}>
-          <button
-            onClick={() => setOpenMenu(openMenu === "reports" ? null : "reports")}
-            className="navbar-link"
-          >
-            Reportes <FontAwesomeIcon icon={faChevronDown} />
-          </button>
-          {openMenu === "reports" && (
-            <div className="dropdown-menu">
-              <Link to="/report/1" className="dropdown-item">
-                <FontAwesomeIcon icon={faFileWaveform} /> Reporte Local
-              </Link>
-              <Link to="/report/2" className="dropdown-item">
-                <FontAwesomeIcon icon={faFileWaveform} /> Reporte Segundo Punto
-              </Link>
-            </div>
-          )}
-        </div>
 
-        <Link to="/accountadmin" className="navbar-link">Admin Cuentas</Link>
+        {/* Solo mostrar Reportes si el usuario es admin */}
+        {user?.rol === "admin" && (
+          <div className="navbar-dropdown" ref={(el) => (menuRefs.current.reports = el)}>
+            <button
+              onClick={() => setOpenMenu(openMenu === "reports" ? null : "reports")}
+              className="navbar-link"
+            >
+              Reportes <FontAwesomeIcon icon={faChevronDown} />
+            </button>
+            {openMenu === "reports" && (
+              <div className="dropdown-menu">
+                <Link to="/report/1" className="dropdown-item">
+                  <FontAwesomeIcon icon={faFileWaveform} /> Reporte Local
+                </Link>
+                <Link to="/report/2" className="dropdown-item">
+                  <FontAwesomeIcon icon={faFileWaveform} /> Reporte Segundo Punto
+                </Link>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Solo mostrar Admin Cuentas si el usuario es admin */}
+        {user?.rol === "admin" && <Link to="/accountadmin" className="navbar-link">Admin Cuentas</Link>}
       </div>
 
       <div className="navbar-right" ref={(el) => (menuRefs.current.user = el)}>
@@ -113,4 +118,5 @@ const Navbar = () => {
     </nav>
   );
 };
+
 export default Navbar;
