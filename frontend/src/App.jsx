@@ -11,8 +11,9 @@ import Report from './pages/Reports/Reports';
 import PasswordReset from './pages/PasswordReset/PasswordReset';
 import NewPassword from './pages/NewPassword/NewPassword';
 import SalesReport from './pages/Reports/SalesReport/SalesReport';
-import InventoryReport  from './pages/Reports/InventoryReport/InventoryReport';
+import InventoryReport from './pages/Reports/InventoryReport/InventoryReport';
 import ProductsReport from './pages/Reports/ProductsReport/ProductsReport';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const App = () => {
   return (
@@ -20,17 +21,55 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/passwordreset" element={<PasswordReset/>}/>
-        <Route path="/reset-password" element={<NewPassword/>}/>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/inventory/:storeId" element={<Inventory />} />
-        <Route path="/sales/new/:storeId" element={<SalesForm />} />
-        <Route path="/report/:storeId" element={<Report />} />
-        <Route path="/salesreport/:storeId" element={<SalesReport/>}/>
-        <Route path="/inventoryreport/:storeId" element={<InventoryReport/>}/>
-        <Route path="/productsreport/:storeId" element={<ProductsReport/>}/>
-        <Route path="/accountadmin" element={<AccountAdmin />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/passwordreset" element={<PasswordReset />} />
+        <Route path="/reset-password" element={<NewPassword />} />
+
+        <Route path="/dashboard" element={
+          <ProtectedRoute allowedRoles={['admin', 'empleado']}>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/inventory/:storeId" element={
+          <ProtectedRoute allowedRoles={['admin', 'empleado']}>
+            <Inventory />
+          </ProtectedRoute>
+        } />
+        <Route path="/sales/new/:storeId" element={
+          <ProtectedRoute allowedRoles={['admin', 'empleado']}>
+            <SalesForm />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/report/:storeId" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <Report />
+          </ProtectedRoute>
+        } />
+        <Route path="/salesreport/:storeId" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <SalesReport />
+          </ProtectedRoute>
+        } />
+        <Route path="/inventoryreport/:storeId" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <InventoryReport />
+          </ProtectedRoute>
+        } />
+        <Route path="/productsreport/:storeId" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <ProductsReport />
+          </ProtectedRoute>
+        } />
+        <Route path="/accountadmin" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <AccountAdmin />
+          </ProtectedRoute>
+        } />
+        <Route path="/register" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <Register />
+          </ProtectedRoute>
+        } />
       </Routes>
     </Router>
   );
