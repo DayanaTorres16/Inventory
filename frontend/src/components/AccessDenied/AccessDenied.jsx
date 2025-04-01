@@ -1,21 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './AccessDenied.css'; // Estilos personalizados
+import { useNavigate } from 'react-router-dom';
+import './AccessDenied.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'; // Importa el icono
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 const AccessDenied = () => {
-  return (
-    <div className="acceso-denegado-container">
-      <div className="acceso-denegado-card">
-        <FontAwesomeIcon icon={faTimesCircle} className="acceso-denegado-icon" />
-        <h2>Acceso Denegado</h2>
-        <p>Lo sentimos, no tienes permisos para acceder a esta página.</p>
-        <p>Por favor, verifica tus credenciales o contacta al administrador del sistema si crees que esto es un error.</p>
-        <Link to="/login" className="acceso-denegado-button">Volver al inicio de sesión</Link>
-      </div>
-    </div>
-  );
+    const navigate = useNavigate();
+
+    const handleVolverInicioSesion = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userRole');
+
+        navigate('/login');
+    };
+
+    return (
+        <div className="access-denied-container">
+            <div className="access-denied-card">
+                <FontAwesomeIcon icon={faTimesCircle} className="access-denied-icon" />
+                <h2>Acceso Denegado</h2>
+                <p>Lo sentimos, no tienes permisos para acceder a esta página.</p>
+                <p>Por favor, verifica tus credenciales o contacta al administrador del sistema si crees que esto es un error.</p>
+                <button onClick={handleVolverInicioSesion} className="access-denied-button">
+                    Volver al inicio de sesión
+                </button>
+            </div>
+        </div>
+    );
 };
 
 export default AccessDenied;
