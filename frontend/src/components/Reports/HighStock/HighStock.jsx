@@ -35,8 +35,7 @@ const HighStock = ({ storeId }) => {
     return (
         <div className="table-container high-stock">
             <div className="table-header">
-                <FontAwesomeIcon icon={faCube} style={{ color: 'royalblue' }} />
-                <h2>Productos Altos de Stock</h2>
+                <h2><FontAwesomeIcon icon={faCube} style={{ color: 'royalblue' }} /> Productos Altos de Stock</h2>
             </div>
             <p className="table-description">
                 Productos que exceden el nivel máximo recomendado
