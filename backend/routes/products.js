@@ -429,5 +429,4 @@ router.post('/sales', (req, res) => {
     });
   });
 });
-
 module.exports = router;
