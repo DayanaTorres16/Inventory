@@ -71,7 +71,7 @@ const NewPassword = () => {
                 </div>
                 <div className="right-password-container">
                     <div className="right-password">
-                        <h3>Restablecer Contraseña</h3>
+                        <h3>Cambio de Contraseña</h3>
                         {error && <p className="error-message">{error}</p>}
                         {message && <p className="success-message">{message}</p>}
                         {!message && !error && (
