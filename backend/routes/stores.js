@@ -10,7 +10,6 @@ const validateStoreParams = (req, res, next) => {
     }
     next();
 };
-
 // Obtener todas las tiendas
 router.get('/', (req, res) => {
     const sql = 'SELECT ID_TIENDA, NOMBRE_TIENDA FROM tienda';
@@ -42,5 +41,4 @@ router.get('/:id', validateStoreParams, (req, res) => {
         res.json(results[0]);
     });
 });
-
 module.exports = router;
