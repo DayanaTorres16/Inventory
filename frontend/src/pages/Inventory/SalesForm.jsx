@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Select from 'react-select';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faPlus, faDollarSign, faUserTag, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faPlus, faDollarSign, faUserTag, faExclamationTriangle,faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import "./SalesForm.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
@@ -114,6 +114,14 @@ const SalesForm = () => {
         setDiscount(false);
         setDiscountedPrice(0);
         setStockError("");
+    };
+
+    const handleRemoveItem = (index) => {
+        setCartItems(prevCart => {
+            const newCart = [...prevCart];
+            newCart.splice(index, 1);
+            return newCart;
+        });
     };
 
     const handleSaveSale = async (event) => {
@@ -275,6 +283,13 @@ const SalesForm = () => {
                             {cartItems.map((item, index) => (
                                 <li key={`${item.productAttributeId}-${index}`}>
                                     {item.productName} - {item.attributeName}: {item.attributeValue} - Cantidad: {item.quantity} - Precio: ${item.price.toFixed(3)}
+                                    <button 
+                                        type="button" 
+                                        className="delete-item-button" 
+                                        onClick={() => handleRemoveItem(index)}
+                                    >
+                                        <FontAwesomeIcon icon={faTrashCan} />
+                                    </button>
                                 </li>
                             ))}
                         </ul>
