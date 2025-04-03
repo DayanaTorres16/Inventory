@@ -108,6 +108,25 @@
 .cart-items-container li {
     padding: 8px;
     border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-item-button {
+    background-color: transparent;
+    border: none;
+    color: #BE5985;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-left: 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.delete-item-button:hover {
+    background-color: #E8A0BF;
+    color: white;
 }
 
 .sales-form-container p {
