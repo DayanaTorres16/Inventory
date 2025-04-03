@@ -39,18 +39,34 @@ const AddProductModal = ({ isOpen, onClose, storeId }) => {
     }, [isOpen]);
 
     const handleAgregarAtributo = () => {
-        if (!nuevoValorAtributo || !cantidadAtributo) return;
+        // Validar entrada
+        if ((atributoSeleccionado === "nuevo" && !nuevoAtributo) || !nuevoValorAtributo || !cantidadAtributo) {
+            return; // No proceder si faltan datos
+        }
+        
         const stock = parseInt(cantidadAtributo, 10);
         if (isNaN(stock) || stock <= 0) return;
         
         if (atributoSeleccionado === "nuevo" && nuevoAtributo) {
-            setAtributos([...atributos, { nombre: nuevoAtributo, valor: nuevoValorAtributo, stock }]);
+            setAtributos([...atributos, { 
+                nombre: nuevoAtributo, 
+                valor: nuevoValorAtributo, 
+                stock,
+                esNuevo: true // Marca para saber que es un atributo nuevo
+            }]);
         } else {
             const atributoExistente = listaAtributos.find(attr => attr.ID_ATRIBUTO === parseInt(atributoSeleccionado, 10));
             if (atributoExistente) {
-                setAtributos([...atributos, { nombre: atributoExistente.NOMBRE_ATRIBUTO, valor: nuevoValorAtributo, stock }]);
+                setAtributos([...atributos, { 
+                    nombre: atributoExistente.NOMBRE_ATRIBUTO, 
+                    valor: nuevoValorAtributo, 
+                    stock 
+                }]);
             }
         }
+        
+        // Reset inputs
+        setAtributoSeleccionado("");
         setNuevoAtributo("");
         setNuevoValorAtributo("");
         setCantidadAtributo("");
@@ -107,6 +123,16 @@ const AddProductModal = ({ isOpen, onClose, storeId }) => {
                             ))}
                             <option value="nuevo">Nuevo atributo</option>
                         </select>
+                        
+                        {atributoSeleccionado === "nuevo" && (
+                            <input 
+                                type="text" 
+                                placeholder="Nombre del Nuevo Atributo" 
+                                value={nuevoAtributo} 
+                                onChange={(e) => setNuevoAtributo(e.target.value)} 
+                            />
+                        )}
+                        
                         <input type="text" placeholder="Valor del Atributo" value={nuevoValorAtributo} onChange={(e) => setNuevoValorAtributo(e.target.value)} />
                         <button className="button-add" onClick={handleAgregarAtributo}>Agregar</button>
                     </div>
