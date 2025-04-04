@@ -248,52 +248,6 @@ const UpdateStockModal = ({ isOpen, onClose, product, setProductos }) => {
                     </div>
                 )}
                 
-                {/* Sección para agregar nuevo atributo */}
-                <div className="new-attribute-section">
-                    <div className="edit-options">
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={isAddingNewAttribute}
-                                onChange={() => setIsAddingNewAttribute(!isAddingNewAttribute)}
-                            />
-                            Agregar nuevo atributo
-                        </label>
-                    </div>
-                    
-                    {isAddingNewAttribute && (
-                        <div className="new-attribute-form">
-                            <div className="detail-field">
-                                <label>Nombre del atributo:</label>
-                                <input 
-                                    type="text" 
-                                    value={newAttributeName} 
-                                    onChange={(e) => setNewAttributeName(e.target.value)} 
-                                    placeholder="Ej: Color, Talla, etc."
-                                />
-                            </div>
-                            <div className="detail-field">
-                                <label>Valor del atributo:</label>
-                                <input 
-                                    type="text" 
-                                    value={newAttributeValue} 
-                                    onChange={(e) => setNewAttributeValue(e.target.value)} 
-                                    placeholder="Ej: Rojo, XL, etc."
-                                />
-                            </div>
-                            <div className="detail-field">
-                                <label>Stock inicial:</label>
-                                <input 
-                                    type="number" 
-                                    value={newAttributeStock} 
-                                    onChange={(e) => setNewAttributeStock(parseInt(e.target.value))} 
-                                    min="0"
-                                />
-                            </div>
-                        </div>
-                    )}
-                </div>
-                
                 <div className="modal-actions">
                     <button className="buttonCancel" onClick={onClose}>Cancelar</button>
                     <button className="buttonConfirm" onClick={handleUpdateProduct}>Actualizar</button>
