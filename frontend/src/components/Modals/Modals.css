@@ -97,6 +97,78 @@
     transform: scale(0.95);
 }
 
+/* Añadir estos estilos a tu archivo Modal.css */
+
+.new-attribute-section {
+    margin-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 15px;
+  }
+  
+  .new-attribute-form {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+  }
+  
+  .detail-field {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .detail-field label {
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  
+  .detail-field input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .edit-options {
+    margin-bottom: 15px;
+  }
+  
+  .edit-options label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .edit-options input[type="checkbox"] {
+    margin-right: 8px;
+  }
+  
+  .attribute-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 8px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+  }
+  
+  .attribute-item label {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .attribute-item input[type="checkbox"] {
+    margin-right: 8px;
+  }
+  
+  .attribute-item input[type="number"] {
+    width: 80px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
 .modal-content input[type="checkbox"] {
     appearance: none;
     width: 18px;
