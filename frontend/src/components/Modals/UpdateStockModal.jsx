@@ -8,12 +8,6 @@ const UpdateStockModal = ({ isOpen, onClose, product, setProductos }) => {
     const [attributeStocks, setAttributeStocks] = useState({});
     const [selectedAttributes, setSelectedAttributes] = useState({});
     const [isEditingDetails, setIsEditingDetails] = useState(false);
-    
-    // Estados para el nuevo atributo
-    const [isAddingNewAttribute, setIsAddingNewAttribute] = useState(false);
-    const [newAttributeName, setNewAttributeName] = useState("");
-    const [newAttributeValue, setNewAttributeValue] = useState("");
-    const [newAttributeStock, setNewAttributeStock] = useState(0);
 
     useEffect(() => {
         if (product) {
@@ -30,12 +24,6 @@ const UpdateStockModal = ({ isOpen, onClose, product, setProductos }) => {
                 setAttributeStocks(initialStocks);
                 setSelectedAttributes(initialSelected);
             }
-            
-            // Reset nuevo atributo cuando cambia el producto
-            setIsAddingNewAttribute(false);
-            setNewAttributeName("");
-            setNewAttributeValue("");
-            setNewAttributeStock(0);
         }
     }, [product]);
 
@@ -88,54 +76,8 @@ const UpdateStockModal = ({ isOpen, onClose, product, setProductos }) => {
                     }
                 }
             }
-            
-            // Agregar nuevo atributo si está seleccionado
-            if (isAddingNewAttribute && newAttributeName && newAttributeValue) {
-                const newAttributeData = {
-                    nombre: newAttributeName,
-                    valor: newAttributeValue,
-                    stock: newAttributeStock
-                };
-                
-                const response = await fetch(`http://localhost:5000/api/products/${product.ID_PRODUCTO}/attributes`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(newAttributeData),
-                });
 
-                if (!response.ok) {
-                    throw new Error(`Error al agregar nuevo atributo (Código: ${response.status})`);
-                }
-                
-                const result = await response.json();
-                
-                // Actualizar el estado con el nuevo atributo
-                if (result.newAttribute) {
-                    const newAttributeObj = {
-                        ID_PRODUCTO_ATRIBUTO: result.newAttribute.ID_PRODUCTO_ATRIBUTO,
-                        NOMBRE_ATRIBUTO: newAttributeName,
-                        VALOR_ATRIBUTO: newAttributeValue,
-                        stock: newAttributeStock
-                    };
-                    
-                    // Actualizar el estado de productos en el componente padre
-                    setProductos(prevProductos =>
-                        prevProductos.map(p => {
-                            if (p.ID_PRODUCTO === product.ID_PRODUCTO) {
-                                return {
-                                    ...p,
-                                    atributos: [...(p.atributos || []), newAttributeObj]
-                                };
-                            }
-                            return p;
-                        })
-                    );
-                }
-            }
-
-            // Actualizar el estado de los productos en el componente padre para otras modificaciones
+            // Actualizar el estado de los productos en el componente padre
             setProductos(prevProductos =>
                 prevProductos.map(p => {
                     if (p.ID_PRODUCTO === product.ID_PRODUCTO) {
@@ -147,13 +89,11 @@ const UpdateStockModal = ({ isOpen, onClose, product, setProductos }) => {
                             updatedProduct.PRECIO = precio;
                         }
                         
-                        // Actualizar atributos existentes
+                        // Actualizar atributos 
                         if (p.atributos && Object.keys(attributeStocks).length > 0) {
                             updatedProduct.atributos = p.atributos.map(attr => ({
                                 ...attr,
-                                stock: selectedAttributes[attr.ID_PRODUCTO_ATRIBUTO] ? 
-                                       attr.stock + attributeStocks[attr.ID_PRODUCTO_ATRIBUTO] : 
-                                       attr.stock,
+                                stock: selectedAttributes[attr.ID_PRODUCTO_ATRIBUTO] ? attributeStocks[attr.ID_PRODUCTO_ATRIBUTO] : attr.stock,
                             }));
                         } else {
                             updatedProduct.stock = stock;
@@ -235,7 +175,7 @@ const UpdateStockModal = ({ isOpen, onClose, product, setProductos }) => {
                                 </label>
                                 <input
                                     type="number"
-                                    value={attributeStocks[atributo.ID_PRODUCTO_ATRIBUTO] || 0}
+                                    value={attributeStocks[atributo.ID_PRODUCTO_ATRIBUTO] || atributo.stock || 0}
                                     onChange={(e) => handleAttributeStockChange(atributo.ID_PRODUCTO_ATRIBUTO, parseInt(e.target.value))}
                                 />
                             </div>
@@ -247,53 +187,6 @@ const UpdateStockModal = ({ isOpen, onClose, product, setProductos }) => {
                         <input type="number" value={stock} onChange={(e) => setStock(parseInt(e.target.value))} />
                     </div>
                 )}
-                
-                {/* Sección para agregar nuevo atributo */}
-                <div className="new-attribute-section">
-                    <div className="edit-options">
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={isAddingNewAttribute}
-                                onChange={() => setIsAddingNewAttribute(!isAddingNewAttribute)}
-                            />
-                            Agregar nuevo atributo
-                        </label>
-                    </div>
-                    
-                    {isAddingNewAttribute && (
-                        <div className="new-attribute-form">
-                            <div className="detail-field">
-                                <label>Nombre del atributo:</label>
-                                <input 
-                                    type="text" 
-                                    value={newAttributeName} 
-                                    onChange={(e) => setNewAttributeName(e.target.value)} 
-                                    placeholder="Ej: Color, Talla, etc."
-                                />
-                            </div>
-                            <div className="detail-field">
-                                <label>Valor del atributo:</label>
-                                <input 
-                                    type="text" 
-                                    value={newAttributeValue} 
-                                    onChange={(e) => setNewAttributeValue(e.target.value)} 
-                                    placeholder="Ej: Rojo, XL, etc."
-                                />
-                            </div>
-                            <div className="detail-field">
-                                <label>Stock inicial:</label>
-                                <input 
-                                    type="number" 
-                                    value={newAttributeStock} 
-                                    onChange={(e) => setNewAttributeStock(parseInt(e.target.value))} 
-                                    min="0"
-                                />
-                            </div>
-                        </div>
-                    )}
-                </div>
-                
                 <div className="modal-actions">
                     <button className="buttonCancel" onClick={onClose}>Cancelar</button>
                     <button className="buttonConfirm" onClick={handleUpdateProduct}>Actualizar</button>
