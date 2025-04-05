@@ -24,7 +24,6 @@ const ProductsTable = ({ productos, setProductos }) => {
     }, []);
 
     const onOpenMenu = (producto, position, atributo) => {
-        console.log("atributo en onOpenMenu:", atributo);
         setMenuOpen({ show: true, product: producto, position: position, atributo: atributo });
     };
 
@@ -52,9 +51,6 @@ const ProductsTable = ({ productos, setProductos }) => {
     };
 
     const handleActualDeleteAttribute = () => {
-        console.log("handleActualDeleteAttribute called");
-        console.log("selectedAttributeId:", selectedAttributeId);
-
         if (selectedAttributeId) {
             handleDeleteAttribute(selectedAttributeId);
             onCloseMenu();
@@ -65,8 +61,6 @@ const ProductsTable = ({ productos, setProductos }) => {
     };
 
     const handleDeleteAttribute = async (id_producto_atributo) => {
-        console.log("id_producto_atributo:", id_producto_atributo);
-
         if (!id_producto_atributo) {
             console.error("Error: id_producto_atributo es null o undefined.");
             return;
@@ -122,8 +116,8 @@ const ProductsTable = ({ productos, setProductos }) => {
     };
 
     const handleContextMenu = (event, producto, atributo) => {
+        if (userRole !== "admin") return;
         event.preventDefault();
-        console.log("atributo en handleContextMenu:", atributo);
         onOpenMenu(producto, { x: event.clientX, y: event.clientY }, atributo);
         setSelectedAttributeId(atributo.ID_PRODUCTO_ATRIBUTO);
     };
@@ -155,7 +149,6 @@ const ProductsTable = ({ productos, setProductos }) => {
                                                 key={`${producto.ID_PRODUCTO}-${atributo.ID_PRODUCTO_ATRIBUTO}`}
                                                 onContextMenu={(event) => handleContextMenu(event, producto, atributo)}
                                             >
-                                                {console.log("atributo en map:", atributo)}
                                                 {atributo.NOMBRE_ATRIBUTO}: {atributo.VALOR_ATRIBUTO}
                                             </div>
                                         ))
@@ -221,7 +214,7 @@ const ProductsTable = ({ productos, setProductos }) => {
                 </div>
             )}
 
-            {menuOpen.show && menuOpen.atributo && (
+            {menuOpen.show && menuOpen.atributo && userRole === "admin" && (
                 <div
                     ref={menuRef}
                     className="action-menu"
@@ -236,7 +229,11 @@ const ProductsTable = ({ productos, setProductos }) => {
                         />
                         {menuOpen.atributo.NOMBRE_ATRIBUTO}: {menuOpen.atributo.VALOR_ATRIBUTO}
                     </div>
-                    {selectedAttributeId !== null && <button onClick={handleActualDeleteAttribute} className="deleted-attribute-button" >Eliminar Atributo</button>}
+                    {selectedAttributeId !== null && (
+                        <button onClick={handleActualDeleteAttribute} className="deleted-attribute-button">
+                            Eliminar Atributo
+                        </button>
+                    )}
                 </div>
             )}
         </div>
