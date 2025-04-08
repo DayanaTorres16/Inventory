@@ -110,7 +110,6 @@ const AddProductModal = ({ isOpen, onClose, storeId }) => {
                 <textarea placeholder="Descripción del Producto" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
                 <div className="price-quantity">
                     <input type="number" placeholder="Precio *" value={precio} onChange={(e) => setPrecio(e.target.value)} />
-                    <input type="number" placeholder="Cantidad *" value={cantidadAtributo} onChange={(e) => setCantidadAtributo(e.target.value)} />
                 </div>
 
                 <div className="attributes-section">
@@ -134,8 +133,10 @@ const AddProductModal = ({ isOpen, onClose, storeId }) => {
                         )}
                         
                         <input type="text" placeholder="Valor del Atributo" value={nuevoValorAtributo} onChange={(e) => setNuevoValorAtributo(e.target.value)} />
+                        <input type="number" placeholder="Cantidad *" value={cantidadAtributo} onChange={(e) => setCantidadAtributo(e.target.value)} />
                         <button className="button-add" onClick={handleAgregarAtributo}>Agregar</button>
                     </div>
+
                     {atributos.length > 0 && (
                         <ul className="attribute-list">
                             {atributos.map((atributo, index) => (
@@ -144,6 +145,7 @@ const AddProductModal = ({ isOpen, onClose, storeId }) => {
                         </ul>
                     )}
                     {atributos.length === 0 && <p>No hay atributos agregados.</p>}
+                    
                 </div>
 
                 <div className="modal-actions">
