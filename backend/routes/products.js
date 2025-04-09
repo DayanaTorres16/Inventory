@@ -311,6 +311,7 @@ router.post('/', async (req, res) => {
 });
 
 // Modificación del endpoint de ventas para validar stock
+// Modificación del endpoint de ventas para validar stock y actualizar inventario
 router.post('/sales', (req, res) => {
   const { storeId, userId, items } = req.body;
   console.log("Datos recibidos en backend:", { storeId, userId, items });
@@ -385,7 +386,18 @@ router.post('/sales', (req, res) => {
                     if (err) {
                       return reject(err);
                     }
-                    resolve();
+                    
+                    // Actualizar el stock restando la cantidad vendida
+                    connection.query(
+                      'UPDATE stock SET STOCK_FINAL = STOCK_FINAL - ? WHERE ID_PRODUCTO_ATRIBUTO = ?',
+                      [item.cantidad, item.atributoId],
+                      (err) => {
+                        if (err) {
+                          return reject({ error: err, message: 'Error al actualizar stock' });
+                        }
+                        resolve();
+                      }
+                    );
                   }
                 );
               }));
