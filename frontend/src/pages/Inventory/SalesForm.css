@@ -11,7 +11,7 @@
     margin-left: 10px;
 }
 .header-container h2 {
-    font-size: 40px;
+    font-size: 30px;
     font-weight: 500;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -21,19 +21,19 @@
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
-    margin-left: 350px;
-    margin-right: 350px;
+    margin-left: 280px;
+    margin-right: 280px;
 }
 .product-container h3 {
     margin-top: 0;
-    font-size: 30px;
+    font-size:25px;
     font-weight: 500;
 }
 .quantity-discount-container {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 .quantity-container,
 .discount-container,
@@ -74,7 +74,7 @@
 .button-add-sale{
     display: block;
     margin: 5px auto 0;
-    width: 800px;
+    width: 950px;
     background-color: #E8A0BF;
     color: white;
     padding: 15px;
@@ -88,8 +88,8 @@
 .cart-items-container ul {
     list-style: none;
     padding: 0;
-    margin-left: 350px;
-    margin-right: 350px;
+    margin-left: 280px;
+    margin-right: 280px;
 }
 .cart-items-container li {
     padding: 8px;
@@ -136,9 +136,9 @@ react-select__option--is-selected {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
-    margin-left: 350px;
-    margin-right: 350px;
+    margin-top: 10px;
+    margin-left: 280px;
+    margin-right: 280px;
     background-color: #f0f0f0;
     padding: 20px;
     border-radius: 5px;
@@ -147,15 +147,15 @@ react-select__option--is-selected {
     display: flex;
     align-items: center;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
 }
 .total-label svg {
     margin-right: 5px;
-    font-size: 20px;
+    font-size: 18px;
 }
 .total-amount {
-    font-weight: bold;
-    font-size: 25px;
+    font-weight: 500;
+    font-size: 15px;
 }
 .divider {
     border: none;
@@ -171,7 +171,7 @@ react-select__option--is-selected {
     display: block;
     margin: 10px auto;
     margin-bottom: 30px;
-    width: 800px;
+    width: 950px;
     background-color: #E8A0BF;
     color: white;
     padding: 15px;
