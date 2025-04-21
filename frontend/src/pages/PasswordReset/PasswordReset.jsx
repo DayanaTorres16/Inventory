@@ -28,12 +28,12 @@ const PasswordReset = () => {
             const data = await response.json();
 
             if (response.ok) {
-                setMessage("Correo enviado. Revisa tu bandeja de entrada.");
+                setMessage(data.message || "Si el correo existe, recibirás instrucciones para restablecer tu contraseña.");
             } else {
-                setError(data.message || "Error al enviar el correo.");
+                setError("No se pudo procesar la solicitud. Inténtalo más tarde.");
             }
-        } catch (err) {
-            setError("Error de conexión con el servidor.");
+        } catch{
+            setError("Error de conexión con el servidor. Inténtalo más tarde.");
         } finally {
             setIsLoading(false);
         }
