@@ -18,8 +18,10 @@ router.post("/register", async (req, res) => {
             "SELECT * FROM usuarios WHERE EMAIL = ?",
             [email]
         );
+        
+        // Mensaje genérico para evitar revelar si el email ya existe
         if (existingUser.length > 0) {
-            return res.status(400).json({ message: "El correo ya está registrado" });
+            return res.status(400).json({ message: "No se pudo completar el registro" });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -32,7 +34,7 @@ router.post("/register", async (req, res) => {
         res.status(201).json({ message: "Usuario registrado exitosamente" });
     } catch (error) {
         console.error("Error en el registro:", error);
-        res.status(500).json({ message: "Error en el servidor" });
+        res.status(500).json({ message: "Error en el registro" });
     }
 });
 
@@ -46,15 +48,16 @@ router.post("/login", async (req, res) => {
             [email]
         );
 
+        // Mensaje genérico para error de autenticación
         if (users.length === 0) {
-            return res.status(401).json({ message: "Usuario no encontrado" });
+            return res.status(401).json({ message: "Credenciales inválidas" });
         }
 
         const user = users[0];
 
         const isPasswordValid = await bcrypt.compare(password, user.CONTRASEÑA);
         if (!isPasswordValid) {
-            return res.status(401).json({ message: "Contraseña incorrecta" });
+            return res.status(401).json({ message: "Credenciales inválidas" });
         }
 
         const token = jwt.sign(
@@ -75,7 +78,7 @@ router.post("/login", async (req, res) => {
         });
     } catch (error) {
         console.error("Error en el login:", error);
-        res.status(500).json({ message: "Error en el servidor" });
+        res.status(500).json({ message: "Error en la autenticación" });
     }
 });
 
@@ -88,7 +91,7 @@ router.get("/users", async (req, res) => {
         res.json(users);
     } catch (error) {
         console.error("Error al obtener usuarios:", error);
-        res.status(500).json({ message: "Error en el servidor" });
+        res.status(500).json({ message: "Error al procesar la solicitud" });
     }
 });
 
@@ -100,7 +103,7 @@ router.delete("/users/:id", async (req, res) => {
         res.json({ message: "Usuario eliminado correctamente" });
     } catch (error) {
         console.error("Error al eliminar usuario:", error);
-        res.status(500).json({ message: "Error en el servidor" });
+        res.status(500).json({ message: "Error al procesar la solicitud" });
     }
 });
 
@@ -117,7 +120,7 @@ router.put("/users/:id", async (req, res) => {
         res.json({ message: "Usuario actualizado correctamente" });
     } catch (error) {
         console.error("Error al actualizar usuario:", error);
-        res.status(500).json({ message: "Error en el servidor" });
+        res.status(500).json({ message: "Error al procesar la solicitud" });
     }
 });
 
@@ -129,7 +132,7 @@ router.post("/password-reset", async (req, res) => {
         const [users] = await db.promise().query("SELECT ID_USUARIO FROM usuarios WHERE EMAIL = ?", [email]);
 
         if (users.length === 0) {
-            return res.status(404).json({ message: "No se encontró una cuenta con ese correo." });
+            return res.json({ message: "Si el correo esta registrado, recibirás un correo con las instrucciones para restablecer tu contraseña." });
         }
 
         const user = users[0];
@@ -158,10 +161,10 @@ router.post("/password-reset", async (req, res) => {
             html: `<p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p><a href="${resetLink}">${resetLink}</a><p>Este enlace es válido por 1 hora.</p>`,
         });
 
-        res.json({ message: "Correo enviado. Revisa tu bandeja de entrada." });
+        res.json({ message: "Si el correo existe, recibirás instrucciones para restablecer tu contraseña." });
     } catch (error) {
         console.error("Error en la recuperación de contraseña:", error);
-        res.status(500).json({ message: "Error en el servidor." });
+        res.status(500).json({ message: "Error al procesar la solicitud." });
     }
 });
 
@@ -176,50 +179,44 @@ router.get("/password-reset/:token", async (req, res) => {
         );
 
         if (users.length === 0) {
-            return res.status(400).json({ message: "Token inválido o expirado." });
+            return res.status(400).json({ message: "Enlace inválido o expirado." });
         }
 
         res.json({ message: "Token válido.", userId: users[0].ID_USUARIO });
     } catch (error) {
         console.error("Error al verificar token:", error);
-        res.status(500).json({ message: "Error en el servidor." });
+        res.status(500).json({ message: "Error al procesar la solicitud." });
     }
 });
+
 //Ruta para restablecer la contraseña
 router.post("/password-reset/:token", async (req, res) => {
     const { token } = req.params;
     const { newPassword } = req.body;
 
     try {
-        console.log("Token recibido:", token);
-        console.log("Nueva contraseña recibida:", newPassword);
-
         const [users] = await db.promise().query(
             "SELECT ID_USUARIO FROM usuarios WHERE reset_token = ? AND reset_token_expiration > NOW()",
             [token]
         );
 
         if (users.length === 0) {
-            return res.status(400).json({ message: "Token inválido o expirado." });
+            return res.status(400).json({ message: "Enlace inválido o expirado." });
         }
 
         const userId = users[0].ID_USUARIO;
         const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-        console.log("ID del usuario:", userId);
-        console.log("Contraseña hasheada:", hashedPassword);
 
         await db.promise().query(
             "UPDATE usuarios SET CONTRASEÑA = ?, reset_token = NULL, reset_token_expiration = NULL WHERE ID_USUARIO = ?",
             [hashedPassword, userId]
         );
 
-        console.log("Contraseña actualizada correctamente.");
-
         res.json({ message: "Contraseña restablecida correctamente." });
     } catch (error) {
         console.error("Error al restablecer contraseña:", error);
-        res.status(500).json({ message: "Error en el servidor." });
+        res.status(500).json({ message: "Error al procesar la solicitud." });
     }
 });
+
 module.exports = router;

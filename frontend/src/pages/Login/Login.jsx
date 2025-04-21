@@ -40,10 +40,11 @@ const Login = () => {
                 alert(`Bienvenido ${data.user.nombre} ${data.user.apellido}`);
                 navigate("/dashboard");
             } else {
-                setErrorMessage(data.message);
+                // Mensaje genérico de error
+                setErrorMessage("Error de autenticación. Por favor, verifica tus credenciales.");
             }
-        } catch (error) {
-            setErrorMessage("Error en el servidor. Inténtalo de nuevo.");
+        } catch{
+            setErrorMessage("Error al conectar con el servidor. Inténtalo más tarde.");
         }
     };
 
@@ -99,5 +100,3 @@ const Login = () => {
 };
 
 export default Login;
-
-

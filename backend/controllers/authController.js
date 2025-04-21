@@ -9,13 +9,9 @@ const login = async (req, res) => {
 
     const user = await User.findOne({ email });
 
-    if (!user) {
-      return res.status(404).json({ message: "Usuario no encontrado" });
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: "Contraseña incorrecta" });
+    // Mensaje genérico para cualquier error de autenticación
+    if (!user || !(await bcrypt.compare(password, user?.password))) {
+      return res.status(401).json({ message: "Credenciales inválidas" });
     }
 
     // Crear token JWT
@@ -33,8 +29,9 @@ const login = async (req, res) => {
       }
     });
   } catch (error) {
+    // Evitar revelar detalles específicos del error
     console.error("Error en login:", error);
-    res.status(500).json({ message: "Error en el servidor" });
+    res.status(500).json({ message: "Error en la autenticación" });
   }
 };
 
