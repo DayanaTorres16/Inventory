@@ -29,6 +29,9 @@ const PasswordReset = () => {
 
             if (response.ok) {
                 setMessage(data.message || "Si el correo existe, recibirás instrucciones para restablecer tu contraseña.");
+            } else if (response.status === 429) {
+                // Mensaje específico para rate limiting
+                setError(data.message || "Demasiadas solicitudes. Intenta más tarde.");
             } else {
                 setError("No se pudo procesar la solicitud. Inténtalo más tarde.");
             }
