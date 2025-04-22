@@ -10,6 +10,18 @@ const router = express.Router();
 
 const JWT_SECRET = process.env.JWT_SECRET || "clave_secreta_super_segura";
 
+// Función para validar que la contraseña cumple con los requisitos de seguridad
+const validatePassword = (password) => {
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password);
+  const hasMinLength = password.length >= 8;
+  
+  if (!hasMinLength || !hasUpperCase || !hasSpecialChar) {
+    return false;
+  }
+  return true;
+};
+
 // Función para formatear el tiempo restante (se usa en el mensaje, no para el cliente)
 const formatTimeRemaining = (timeInMs) => {
   const minutes = Math.floor(timeInMs / 60000);
@@ -68,6 +80,13 @@ const registerLimiter = rateLimit({
 //Registrar usuario con limitación
 router.post("/register", registerLimiter, async (req, res) => {
   const { name, lastName, email, password, role } = req.body;
+
+  // Validar que la contraseña cumpla con los requisitos de seguridad
+  if (!validatePassword(password)) {
+    return res.status(400).json({ 
+      message: "La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un carácter especial" 
+    });
+  }
 
   try {
     const [existingUser] = await db.promise().query(
@@ -249,6 +268,13 @@ router.get("/password-reset/:token", async (req, res) => {
 router.post("/password-reset/:token", passwordResetLimiter, async (req, res) => {
   const { token } = req.params;
   const { newPassword } = req.body;
+
+  // Validar que la nueva contraseña cumpla con los requisitos de seguridad
+  if (!validatePassword(newPassword)) {
+    return res.status(400).json({ 
+      message: "La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un carácter especial" 
+    });
+  }
 
   try {
     const [users] = await db.promise().query(
