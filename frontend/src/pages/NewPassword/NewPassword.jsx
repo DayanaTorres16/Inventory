@@ -1,3 +1,4 @@
+// En NewPassword.jsx
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
@@ -13,6 +14,7 @@ const NewPassword = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
 
     useEffect(() => {
         const verifyToken = async () => {
@@ -26,17 +28,50 @@ const NewPassword = () => {
                 if (!response.ok) {
                     setError(data.message || "Token inválido o expirado.");
                 }
-            } catch (err) {
+            } catch{
                 setError("Error de conexión con el servidor.");
             }
         };
         verifyToken();
     }, [token]);
 
+    // Función para validar la contraseña
+    const validatePassword = (password) => {
+        const hasUpperCase = /[A-Z]/.test(password);
+        const hasSpecialChar = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(password);
+        const hasMinLength = password.length >= 8;
+        
+        if (!hasMinLength) {
+            return "La contraseña debe tener al menos 8 caracteres";
+        }
+        if (!hasUpperCase) {
+            return "La contraseña debe contener al menos una letra mayúscula";
+        }
+        if (!hasSpecialChar) {
+            return "La contraseña debe contener al menos un carácter especial";
+        }
+        
+        return "";
+    };
+
+    const handleNewPasswordChange = (e) => {
+        const value = e.target.value;
+        setNewPassword(value);
+        const error = validatePassword(value);
+        setPasswordError(error);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage("");
         setError("");
+
+        // Validar la contraseña
+        const passwordValidation = validatePassword(newPassword);
+        if (passwordValidation) {
+            setPasswordError(passwordValidation);
+            return;
+        }
 
         if (newPassword !== confirmPassword) {
             setError("Las contraseñas no coinciden.");
@@ -57,7 +92,7 @@ const NewPassword = () => {
             } else {
                 setError(data.message || "Error al restablecer la contraseña.");
             }
-        } catch (err) {
+        } catch{
             setError("Error de conexión con el servidor.");
         }
     };
@@ -82,9 +117,17 @@ const NewPassword = () => {
                                         type="password"
                                         id="newPassword"
                                         value={newPassword}
-                                        onChange={(e) => setNewPassword(e.target.value)}
+                                        onChange={handleNewPasswordChange}
                                         required
                                     />
+                                    {passwordError && (
+                                        <p className="error-message">{passwordError}</p>
+                                    )}
+                                    {!passwordError && (
+                                        <h4 className="password-requirements">
+                                            La contraseña debe tener al menos 8 caracteres, una mayúscula y un carácter especial
+                                        </h4>
+                                    )}
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="confirmPassword">Confirmar Contraseña</label>
@@ -96,7 +139,13 @@ const NewPassword = () => {
                                         required
                                     />
                                 </div>
-                                <button type="submit" className="password-button">Restablecer</button>
+                                <button 
+                                    type="submit" 
+                                    className="password-button"
+                                    disabled={!!passwordError}
+                                >
+                                    Restablecer
+                                </button>
                             </form>
                         )}
                     </div>
