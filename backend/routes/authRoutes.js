@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const db = require("../db");
 const rateLimit = require('express-rate-limit');
+const { body, validationResult } = require('express-validator'); // Nuevo paquete
 
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
@@ -77,8 +78,38 @@ const registerLimiter = rateLimit({
   }
 });
 
-//Registrar usuario con limitación
-router.post("/register", registerLimiter, async (req, res) => {
+// Validaciones para registro
+const registerValidations = [
+  body('email').isEmail().withMessage('El correo electrónico no es válido'),
+  body('name').trim().notEmpty().withMessage('El nombre es requerido'),
+  body('lastName').trim().notEmpty().withMessage('El apellido es requerido'),
+  body('role').isIn(['admin', 'empleado']).withMessage('Rol no válido')
+];
+
+// Validaciones para login
+const loginValidations = [
+  body('email').isEmail().withMessage('El correo electrónico no es válido'),
+  body('password').notEmpty().withMessage('La contraseña es requerida')
+];
+
+// Validaciones para reset de contraseña
+const resetValidations = [
+  body('email').isEmail().withMessage('El correo electrónico no es válido')
+];
+
+// Validaciones para nueva contraseña
+const newPasswordValidations = [
+  body('newPassword').isLength({ min: 8 }).withMessage('La contraseña debe tener al menos 8 caracteres')
+];
+
+//Registrar usuario con limitación y validación
+router.post("/register", registerLimiter, registerValidations, async (req, res) => {
+  // Verificar errores de validación
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: "Datos de registro inválidos", errors: errors.array() });
+  }
+
   const { name, lastName, email, password, role } = req.body;
 
   // Validar que la contraseña cumpla con los requisitos de seguridad
@@ -113,8 +144,14 @@ router.post("/register", registerLimiter, async (req, res) => {
   }
 });
 
-//Iniciar sesión con limitación
-router.post("/login", loginLimiter, async (req, res) => {
+//Iniciar sesión con limitación y validación
+router.post("/login", loginLimiter, loginValidations, async (req, res) => {
+  // Verificar errores de validación
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: "Credenciales inválidas" });
+  }
+
   const { email, password } = req.body;
 
   try {
@@ -187,6 +224,12 @@ router.put("/users/:id", async (req, res) => {
   const { id } = req.params;
   const { NOMBRE, APELLIDO, EMAIL, ROL } = req.body;
 
+  // Validar rol
+  const allowedRoles = ['admin', 'empleado'];
+  if (!allowedRoles.includes(ROL)) {
+    return res.status(400).json({ message: "Rol no válido" });
+  }
+
   try {
     await db.promise().query(
       "UPDATE usuarios SET NOMBRE = ?, APELLIDO = ?, EMAIL = ?, ROL = ? WHERE ID_USUARIO = ?",
@@ -199,15 +242,21 @@ router.put("/users/:id", async (req, res) => {
   }
 });
 
-//Ruta para solicitar recuperación de contraseña con limitación
-router.post("/password-reset", passwordResetLimiter, async (req, res) => {
+//Ruta para solicitar recuperación de contraseña con limitación y validación
+router.post("/password-reset", passwordResetLimiter, resetValidations, async (req, res) => {
+  // Verificar errores de validación
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(200).json({ message: "Si el correo está registrado, recibirás un correo con las instrucciones para restablecer tu contraseña." });
+  }
+
   const { email } = req.body;
 
   try {
     const [users] = await db.promise().query("SELECT ID_USUARIO FROM usuarios WHERE EMAIL = ?", [email]);
 
     if (users.length === 0) {
-      return res.json({ message: "Si el correo esta registrado, recibirás un correo con las instrucciones para restablecer tu contraseña." });
+      return res.json({ message: "Si el correo está registrado, recibirás un correo con las instrucciones para restablecer tu contraseña." });
     }
 
     const user = users[0];
@@ -225,9 +274,13 @@ router.post("/password-reset", passwordResetLimiter, async (req, res) => {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
+      tls: {
+        rejectUnauthorized: false  // Solo para desarrollo
+      }
     });
 
-    const resetLink = `http://localhost:5174/reset-password?token=${token}`;
+    // Crear enlace seguro (usando https en producción)
+    const resetLink = `http://localhost:5174/reset-password?token=${encodeURIComponent(token)}`;
 
     await transporter.sendMail({
       from: "no-reply@tuapp.com",
@@ -265,7 +318,12 @@ router.get("/password-reset/:token", async (req, res) => {
 });
 
 //Ruta para restablecer la contraseña
-router.post("/password-reset/:token", passwordResetLimiter, async (req, res) => {
+router.post("/password-reset/:token", passwordResetLimiter, newPasswordValidations, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: "Formato de contraseña inválido" });
+  }
+
   const { token } = req.params;
   const { newPassword } = req.body;
 
