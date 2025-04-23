@@ -14,16 +14,30 @@ const AccountAdmin = () => {
     const [selectedUser, setSelectedUser] = useState(null);
     const [showDeletePopup, setShowDeletePopup] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [filteredUsers, setFilteredUsers] = useState([]);
 
     useEffect(() => {
         fetchUsers();
     }, []);
+
+    useEffect(() => {
+        if (users.length > 0) {
+            const filtered = users.filter(user => 
+                user.NOMBRE.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                user.APELLIDO.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                user.EMAIL.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setFilteredUsers(filtered);
+        }
+    }, [searchTerm, users]);
 
     const fetchUsers = async () => {
         try {
             const response = await fetch("http://localhost:5000/api/auth/users");
             const data = await response.json();
             setUsers(data);
+            setFilteredUsers(data); // Inicialmente, filteredUsers contiene todos los usuarios
         } catch (error) {
             console.error("Error al obtener usuarios:", error);
         }
@@ -33,6 +47,7 @@ const AccountAdmin = () => {
         try {
             await fetch(`http://localhost:5000/api/auth/users/${id}`, { method: "DELETE" });
             setUsers(users.filter(user => user.ID_USUARIO !== id));
+            setFilteredUsers(filteredUsers.filter(user => user.ID_USUARIO !== id));
             setShowDeletePopup(false);
         } catch (error) {
             console.error("Error al eliminar usuario:", error);
@@ -66,7 +81,10 @@ const AccountAdmin = () => {
                         </button>
                     </Link>
                 </div>
-                <SearchBar />
+                <SearchBar 
+                    searchTerm={searchTerm} 
+                    onSearch={setSearchTerm}
+                />
 
                 <table>
                     <thead>
@@ -79,8 +97,8 @@ const AccountAdmin = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.length > 0 ? (
-                            users.map(user => (
+                        {filteredUsers.length > 0 ? (
+                            filteredUsers.map(user => (
                                 <tr key={user.ID_USUARIO}>
                                     <td>{user.NOMBRE}</td>
                                     <td>{user.APELLIDO}</td>
@@ -98,7 +116,7 @@ const AccountAdmin = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="5">No hay usuarios registrados.</td>
+                                <td colSpan="5">No se encontraron usuarios con ese criterio de búsqueda.</td>
                             </tr>
                         )}
                     </tbody>
