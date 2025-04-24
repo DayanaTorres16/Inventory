@@ -61,9 +61,9 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <div className='manual-container'>
-                        <a href={manualUrl} className="manual-box">
+                        <a href="https://drive.google.com/drive/folders/1PYedVzuDk-E9dqzLeGLG5jMqUgvkguRr?usp=drive_link" className="manual-box">
                             <div className="manual-text">
-                                <h2 className="manual-title"><FontAwesomeIcon icon={faFileInvoice} /> Manual de Usuario</h2>
+                               <h2 className="manual-title"><FontAwesomeIcon icon={faFileInvoice} /> Manual de Usuario</h2>
                                 <p className="manual-subtitle">Guía completa de uso del sistema</p>
                             </div>
                         </a>
