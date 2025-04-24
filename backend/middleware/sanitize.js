@@ -1,9 +1,10 @@
 const sanitizeHtml = require('sanitize-html');
+const mysql = require('mysql2');
 
 const sanitizeOptions = {
-  allowedTags: [], // No permitir etiquetas HTML
-  allowedAttributes: {}, // No permitir atributos
-  disallowedTagsMode: 'recursiveEscape' // Convertir a texto entidades HTML
+  allowedTags: [], 
+  allowedAttributes: {},
+  disallowedTagsMode: 'recursiveEscape' 
 };
 
 const sanitizeMiddleware = (req, res, next) => {
@@ -30,10 +31,19 @@ function sanitizeObject(obj) {
   for (const key in obj) {
     if (typeof obj[key] === 'string') {
       obj[key] = sanitizeHtml(obj[key], sanitizeOptions);
+      
+      obj[key] = mysql.escape(obj[key]).slice(1, -1); 
     } else if (typeof obj[key] === 'object' && obj[key] !== null) {
       sanitizeObject(obj[key]);
     }
   }
 }
 
-module.exports = sanitizeMiddleware;
+function escapeIdentifier(identifier) {
+  return '`' + identifier.replace(/[^a-zA-Z0-9_]/g, '').replace(/`/g, '') + '`';
+}
+
+module.exports = {
+  sanitizeMiddleware,
+  escapeIdentifier
+};

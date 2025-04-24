@@ -2,24 +2,34 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User"); 
 const { body, validationResult } = require('express-validator');
+const xss = require('xss'); // Agregar esta dependencia
 
-// Validaciones para login
+// Validaciones para login con sanitización adicional
 const loginValidations = [
-  body('email').isEmail().withMessage('El correo electrónico no es válido'),
-  body('password').notEmpty().withMessage('La contraseña es requerida')
+  body('email')
+    .isEmail().withMessage('El correo electrónico no es válido')
+    .normalizeEmail() 
+    .trim()
+    .escape(),
+  body('password')
+    .notEmpty().withMessage('La contraseña es requerida')
+    .trim()
+    .escape()
 ];
 
-// Controlador de inicio de sesión
+// Controlador de inicio de sesión con seguridad mejorada
 const login = async (req, res) => {
-  // Verificar errores de validación
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ message: "Credenciales inválidas" });
   }
 
   try {
-    const { email, password } = req.body;
+    // Sanitización adicional
+    const email = xss(req.body.email);
+    const password = req.body.password; 
 
+    // Consulta segura usando método findOne
     const user = await User.findOne({ email });
 
     // Mensaje genérico para cualquier error de autenticación
@@ -27,10 +37,16 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Credenciales inválidas" });
     }
 
-    // Crear token JWT con expiración de 30 minutos (más seguro)
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "30m" });
+    // Crear token JWT con expiración de 30 minutos
+    const token = jwt.sign(
+      { id: user._id }, 
+      process.env.JWT_SECRET, 
+      { 
+        expiresIn: "30m",
+        algorithm: "HS256" 
+      }
+    );
 
-    // Enviar respuesta con datos del usuario
     res.json({
       token,
       user: {
@@ -42,7 +58,6 @@ const login = async (req, res) => {
       }
     });
   } catch (error) {
-    // Evitar revelar detalles específicos del error
     console.error("Error en login:", error);
     res.status(500).json({ message: "Error en la autenticación" });
   }

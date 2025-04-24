@@ -25,7 +25,8 @@
     "pdfkit": "^0.16.0",
     "sanitize-html": "^2.16.0",
     "table-layout": "^4.1.1",
-    "wkhtmltopdf": "^0.4.0"
+    "wkhtmltopdf": "^0.4.0",
+    "xss": "^1.0.15"
   },
   "devDependencies": {
     "@playwright/test": "^1.51.1",
