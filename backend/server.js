@@ -11,7 +11,7 @@ const salesReportRoutes = require("./routes/salesReport");
 const inventoryReportRoutes = require("./routes/inventoryReport");
 const productsReportRoutes = require("./routes/productsReport");
 const storesRouter = require('./routes/stores');
-const sanitizeMiddleware = require('./middleware/sanitize'); // Nuevo middleware
+const { sanitizeMiddleware } = require('./middleware/sanitize'); // Importación corregida
 
 const app = express();
 
@@ -43,7 +43,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use(sanitizeMiddleware);
+app.use(sanitizeMiddleware); // Ahora utiliza correctamente la función
 
 app.use((req, res, next) => {
     console.log(`📡 Petición recibida: ${req.method} ${req.path}`);
