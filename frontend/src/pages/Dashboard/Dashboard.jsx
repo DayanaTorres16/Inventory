@@ -15,7 +15,6 @@ const Dashboard = () => {
     const images = [anchetaFirstPage, anchetaHome1, anchetaHome2, anchetaHome3, anchetaHome4];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [user, setUser] = useState(null);
-    const manualUrl = "/manual-usuario";
 
     useEffect(() => {
         const interval = setInterval(() => {
