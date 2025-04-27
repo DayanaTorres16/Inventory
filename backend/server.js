@@ -23,10 +23,10 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "https://sistemagestiondeinventarios.onrender.com"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://sistemagestiondeinventarios.onrender.com"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'"],
       imgSrc: ["'self'", "data:"],
-      connectSrc: ["'self'", "https://sistemagestiondeinventarios.onrender.com", "https://inventorybackend-cv1q.onrender.com"],
+      connectSrc: ["'self'", "https://gestiondeinventarios.vercel.app/", "https://inventorybackend-cv1q.onrender.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       objectSrc: ["'none'"],
       upgradeInsecureRequests: [],
