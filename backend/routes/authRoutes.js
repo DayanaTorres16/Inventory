@@ -287,7 +287,7 @@ router.post("/password-reset", passwordResetLimiter, resetValidations, async (re
       from: "no-reply@tuapp.com",
       to: email,
       subject: "Recuperación de contraseña",
-      html: `<p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p><a href="${resetLink}">${resetLink}</a><p>Este enlace es válido por 30 min.</p>`,
+      html: `<p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p><a href="${resetLink}">${resetLink}</a><p>Este enlace es válido por 1 hora.</p>`,
     });
 
     res.json({ message: "Si el correo existe, recibirás instrucciones para restablecer tu contraseña." });
