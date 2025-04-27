@@ -171,7 +171,7 @@ router.get('/best-selling-attributes', validateDateParams, (req, res) => {
         FROM productos p
         JOIN detalle_venta dv ON p.ID_PRODUCTO = dv.ID_PRODUCTO
         JOIN venta v ON dv.ID_VENTA = v.ID_VENTA
-        JOIN producto_atributos pa ON p.ID_PRODUCTO = pa.ID_PRODUCTO
+        JOIN producto_atributos pa ON dv.ID_PRODUCTO_ATRIBUTO = pa.ID_PRODUCTO_ATRIBUTO
         JOIN atributos a ON pa.ID_ATRIBUTO = a.ID_ATRIBUTO
         WHERE p.ID_TIENDA = ? AND DATE(v.FECHA_VENTA) BETWEEN ? AND ?
         GROUP BY p.ID_PRODUCTO, pa.ID_PRODUCTO_ATRIBUTO
@@ -196,7 +196,7 @@ router.get('/high-rotation-attributes', validateDateParams, (req, res) => {
         FROM productos p
         JOIN detalle_venta dv ON p.ID_PRODUCTO = dv.ID_PRODUCTO
         JOIN venta v ON dv.ID_VENTA = v.ID_VENTA
-        JOIN producto_atributos pa ON p.ID_PRODUCTO = pa.ID_PRODUCTO
+        JOIN producto_atributos pa ON dv.ID_PRODUCTO_ATRIBUTO = pa.ID_PRODUCTO_ATRIBUTO
         JOIN atributos a ON pa.ID_ATRIBUTO = a.ID_ATRIBUTO
         WHERE p.ID_TIENDA = ? AND DATE(v.FECHA_VENTA) BETWEEN ? AND ?
         GROUP BY p.ID_PRODUCTO, pa.ID_PRODUCTO_ATRIBUTO
@@ -222,7 +222,7 @@ router.get('/low-rotation-attributes', validateDateParams, (req, res) => {
         FROM productos p
         JOIN detalle_venta dv ON p.ID_PRODUCTO = dv.ID_PRODUCTO
         JOIN venta v ON dv.ID_VENTA = v.ID_VENTA
-        JOIN producto_atributos pa ON p.ID_PRODUCTO = pa.ID_PRODUCTO
+        JOIN producto_atributos pa ON dv.ID_PRODUCTO_ATRIBUTO = pa.ID_PRODUCTO_ATRIBUTO
         JOIN atributos a ON pa.ID_ATRIBUTO = a.ID_ATRIBUTO
         WHERE p.ID_TIENDA = ? AND DATE(v.FECHA_VENTA) BETWEEN ? AND ?
         GROUP BY p.ID_PRODUCTO, pa.ID_PRODUCTO_ATRIBUTO
