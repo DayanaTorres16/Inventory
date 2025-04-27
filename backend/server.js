@@ -36,7 +36,7 @@ app.use(
 
 // Configuración de CORS más segura
 app.use(cors({
-    origin: "https://gestiondeinventarios.vercel.app/",
+    origin: "https://sistemagestiondeinventarios.onrender.com",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
