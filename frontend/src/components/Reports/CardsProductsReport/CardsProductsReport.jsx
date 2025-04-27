@@ -16,13 +16,13 @@ const CardsProductsReport = ({ storeId }) => {
             setLoading(true);
             setError(null);
             try {
-                const expensiveRes = await axios.get(`http://localhost:5000/api/productsReport/expensive/count?storeId=${storeId}`);
+                const expensiveRes = await axios.get(`https://inventorybackend-cv1q.onrender.com/api/productsReport/expensive/count?storeId=${storeId}`);
                 setExpensiveCount(expensiveRes.data.cantidad_productos_mas_caros);
 
-                const cheapRes = await axios.get(`http://localhost:5000/api/productsReport/cheap/count?storeId=${storeId}`);
+                const cheapRes = await axios.get(`https://inventorybackend-cv1q.onrender.com/api/productsReport/cheap/count?storeId=${storeId}`);
                 setCheapCount(cheapRes.data.cantidad_productos_mas_baratos);
 
-                const quantityResponse = await axios.get(`http://localhost:5000/api/inventoryReport/total-quantity?storeId=${storeId}`);
+                const quantityResponse = await axios.get(`https://inventorybackend-cv1q.onrender.com/api/inventoryReport/total-quantity?storeId=${storeId}`);
                 setTotalQuantity(quantityResponse.data.cantidad_total_productos ?? 0);
 
             } catch (err) {

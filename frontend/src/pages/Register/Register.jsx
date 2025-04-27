@@ -17,7 +17,6 @@ const Register = () => {
     });
 
     const [passwordError, setPasswordError] = useState("");
-    // const [isFormValid, setIsFormValid] = useState(false); // Eliminamos esta línea porque 'isFormValid' no se usa
 
     // Función para validar la contraseña
     const validatePassword = (password) => {
@@ -46,7 +45,6 @@ const Register = () => {
         if (name === "password") {
             const error = validatePassword(value);
             setPasswordError(error);
-            // setIsFormValid(error === ""); // Ya no necesitamos actualizar 'isFormValid'
         }
     };
 
@@ -61,7 +59,7 @@ const Register = () => {
         }
 
         try {
-            const response = await fetch("http://localhost:5000/api/auth/register", {
+            const response = await fetch("https://inventorybackend-cv1q.onrender.com/api/auth/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),

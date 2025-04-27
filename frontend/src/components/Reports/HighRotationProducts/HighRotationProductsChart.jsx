@@ -24,7 +24,7 @@ const HighRotationProductsChart = ({ storeId, dateRange }) => {
         const endDate = dateRange.endDate instanceof Date ? dateRange.endDate : new Date(dateRange.endDate);
 
         setLoading(true);
-        const response = await axios.get(`http://localhost:5000/api/salesreport/high-rotation`, {
+        const response = await axios.get(`https://inventorybackend-cv1q.onrender.com/api/salesreport/high-rotation`, {
           params: {
             storeId,
             startDate: startDate.toISOString().split('T')[0],

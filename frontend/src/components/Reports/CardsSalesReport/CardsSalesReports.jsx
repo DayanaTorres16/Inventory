@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine, faClipboardList, faBoxes } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 
-function CardsSalesReports({ dateRange, onDateChange }) { // Eliminamos initialDateRange y usamos dateRange directamente
+function CardsSalesReports({ dateRange, onDateChange }) { 
     const { storeId } = useParams();
     const [totalIngresos, setTotalIngresos] = useState(null);
     const [totalVentas, setTotalVentas] = useState(null);
@@ -16,9 +16,9 @@ function CardsSalesReports({ dateRange, onDateChange }) { // Eliminamos initialD
             setLoading(true);
             setError(null);
 
-            let ingresosUrl = `http://localhost:5000/api/salesReport/sales/total?storeId=${storeId}`;
-            let ventasUrl = `http://localhost:5000/api/salesReport/sales/count?storeId=${storeId}`;
-            let productosUrl = `http://localhost:5000/api/salesReport/products/total?storeId=${storeId}`;
+            let ingresosUrl = `https://inventorybackend-cv1q.onrender.com/api/salesReport/sales/total?storeId=${storeId}`;
+            let ventasUrl = `https://inventorybackend-cv1q.onrender.com/api/salesReport/sales/count?storeId=${storeId}`;
+            let productosUrl = `https://inventorybackend-cv1q.onrender.com/api/salesReport/products/total?storeId=${storeId}`;
 
             if (dateRange && dateRange.startDate && dateRange.endDate) {
                 const startDateStr = dateRange.startDate.toISOString().split('T')[0];

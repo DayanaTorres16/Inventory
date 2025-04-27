@@ -23,7 +23,7 @@ const NewPassword = () => {
                 return;
             }
             try {
-                const response = await fetch(`http://localhost:5000/api/auth/password-reset/${token}`);
+                const response = await fetch(`https://inventorybackend-cv1q.onrender.com/api/auth/password-reset/${token}`);
                 const data = await response.json();
                 if (!response.ok) {
                     setError(data.message || "Token inválido o expirado.");
@@ -79,7 +79,7 @@ const NewPassword = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/api/auth/password-reset/${token}`, {
+            const response = await fetch(`https://inventorybackend-cv1q.onrender.com/api/auth/password-reset/${token}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ newPassword }),

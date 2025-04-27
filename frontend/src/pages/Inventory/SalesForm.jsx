@@ -21,7 +21,7 @@ const SalesForm = () => {
     const [availableStock, setAvailableStock] = useState(0);
 
     useEffect(() => {
-        const apiUrl = `http://localhost:5000/api/products/${storeId}`;
+        const apiUrl = `https://inventorybackend-cv1q.onrender.com/api/products/${storeId}`;
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
@@ -133,7 +133,7 @@ const SalesForm = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/products/sales', {
+            const response = await fetch('https://inventorybackend-cv1q.onrender.com/api/products/sales', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

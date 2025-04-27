@@ -23,7 +23,7 @@ const Login = () => {
     setRetryAfter(null); // Limpiar tiempo de reintento previo
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch("https://inventorybackend-cv1q.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -41,14 +41,12 @@ const Login = () => {
         alert(`Bienvenido ${data.user.nombre} ${data.user.apellido}`);
         navigate("/dashboard");
       } else if (response.status === 429) {
-        setRetryAfter(data.retryAfterMs || 60000); // Fallback a 60 segundos si no se recibe
+        setRetryAfter(data.retryAfterMs || 60000); 
       } else {
-        // Aquí podrías manejar otros errores de autenticación si lo deseas
-        // Por ejemplo: setErrorMessage("Credenciales inválidas");
+        // Manejo de errores de autenticación
       }
     } catch {
-      // Aquí podrías manejar errores de conexión
-      // Por ejemplo: setErrorMessage("Error al conectar con el servidor. Inténtalo más tarde.");
+      // Manejo de errores de conexión
     }
   };
 

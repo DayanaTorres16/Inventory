@@ -28,7 +28,7 @@ const LowRotationProducts = ({ storeId, dateRange }) => {
         console.log('ProductosBajaRotacion: endDate:', endDate, 'typeof endDate:', typeof endDate);
 
         setLoading(true);
-        const response = await axios.get(`http://localhost:5000/api/salesreport/low-rotation`, {
+        const response = await axios.get(`https://inventorybackend-cv1q.onrender.com/api/salesreport/low-rotation`, {
           params: {
             storeId,
             startDate: startDate.toISOString().split('T')[0],

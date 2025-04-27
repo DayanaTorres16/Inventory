@@ -34,7 +34,7 @@ const ProductsTable = ({ productos, setProductos }) => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+            const response = await fetch(`https://inventorybackend-cv1q.onrender.com/api/products/${id}`, {
                 method: "DELETE",
             });
 
@@ -68,7 +68,7 @@ const ProductsTable = ({ productos, setProductos }) => {
 
         try {
             const response = await fetch(
-                `http://localhost:5000/api/products/producto_atributos/${id_producto_atributo}`,
+                `https://inventorybackend-cv1q.onrender.com/api/products/producto_atributos/${id_producto_atributo}`,
                 {
                     method: "DELETE",
                 }

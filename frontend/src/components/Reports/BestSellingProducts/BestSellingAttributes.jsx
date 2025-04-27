@@ -14,7 +14,7 @@ const BestSellingAttributes = ({ storeId, dateRange }) => {
 
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:5000/api/salesreport/best-selling-attributes`, {
+        const response = await axios.get(`https://inventorybackend-cv1q.onrender.com/api/salesreport/best-selling-attributes`, {
           params: {
             storeId,
             startDate: dateRange.startDate,

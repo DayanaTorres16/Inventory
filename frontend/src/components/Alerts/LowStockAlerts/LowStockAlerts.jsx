@@ -14,7 +14,7 @@ function LowStockAlerts() {
       try {
         setLoading(true);
 
-        const storesResponse = await fetch('http://localhost:5000/api/stores');
+        const storesResponse = await fetch('https://inventorybackend-cv1q.onrender.com/api/stores');
         if (!storesResponse.ok) {
           throw new Error(`HTTP error! status: ${storesResponse.status}`);
         }
@@ -36,7 +36,7 @@ function LowStockAlerts() {
           storesData.map(async store => {
             try {
               const response = await fetch(
-                `http://localhost:5000/api/inventoryReport/minimum?storeId=${store.ID_TIENDA}`
+                `https://inventorybackend-cv1q.onrender.com/api/inventoryReport/minimum?storeId=${store.ID_TIENDA}`
               );
               if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);

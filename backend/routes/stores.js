@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-// Middleware para verificar parámetros (similar al validateParams que usas en otras rutas)
+// Middleware para verificar parámetros 
 const validateStoreParams = (req, res, next) => {
     const storeId = req.params.id;
     if (!storeId || isNaN(Number(storeId))) {
