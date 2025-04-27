@@ -13,7 +13,7 @@ const connection = mysql.createPool({
   queueLimit: 0,
   timezone: 'Z', 
   ssl: process.env.NODE_ENV === 'production' ? {
-    rejectUnauthorized: true
+    rejectUnauthorized: false
   } : undefined,
   connectTimeout: 10000, 
   // Prevenir inyección SQL
