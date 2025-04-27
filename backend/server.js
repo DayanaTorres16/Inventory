@@ -26,7 +26,7 @@ app.use(
       scriptSrc: ["'self'", "http://localhost:5173"],
       styleSrc: ["'self'", "'unsafe-inline'", "http://localhost:5173"],
       imgSrc: ["'self'", "data:"],
-      connectSrc: ["'self'", "http://localhost:5000", "http://localhost:5173","https://inventorybackend-cv1q.onrender.com"],
+      connectSrc: ["'self'", "http://localhost:5173", "https://inventorybackend-cv1q.onrender.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       objectSrc: ["'none'"],
       upgradeInsecureRequests: [],
@@ -65,5 +65,5 @@ app.use('/api/stores', storesRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+
 });
