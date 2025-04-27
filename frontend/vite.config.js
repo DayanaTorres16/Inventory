@@ -9,6 +9,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
+    // Asegura que se copien los archivos estáticos correctamente
     copyPublicDir: true
   }
 })
