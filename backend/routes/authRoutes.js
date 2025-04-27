@@ -280,7 +280,7 @@ router.post("/password-reset", passwordResetLimiter, resetValidations, async (re
     });
 
     // Crear enlace seguro (usando https en producción)
-    const resetLink = `https://gestiondeinventarios.vercel.app/reset-password?token=${encodeURIComponent(token)}`;
+    const resetLink = `http://localhost:5174/reset-password?token=${encodeURIComponent(token)}`;
     
 
     await transporter.sendMail({
