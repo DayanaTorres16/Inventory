@@ -20,18 +20,18 @@ app.use(helmet());
 
 // Configuración personalizada de Content Security Policy 
 app.use(
-    helmet.contentSecurityPolicy({
-        directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: ["'self'"],
-            styleSrc: ["'self'"],
-            imgSrc: ["'self'", "data:"],
-            connectSrc: ["'self'", "https://gestiondeinventarios.vercel.app/", "https://inventorybackend-cv1q.onrender.com"],
-            fontSrc: ["'self'", "https://fonts.gstatic.com"],
-            objectSrc: ["'none'"],
-            upgradeInsecureRequests: [],
-        },
-    })
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "https://gestiondeinventarios.vercel.app/"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://gestiondeinventarios.vercel.app/"],
+      imgSrc: ["'self'", "data:"],
+      connectSrc: ["'self'", "https://gestiondeinventarios.vercel.app/", "https://inventorybackend-cv1q.onrender.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  })
 );
 
 // Configuración de CORS 
