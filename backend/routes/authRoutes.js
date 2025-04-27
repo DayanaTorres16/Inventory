@@ -279,18 +279,15 @@ router.post("/password-reset", passwordResetLimiter, resetValidations, async (re
       }
     });
 
-    const resetLink = `https://sistemagestiondelinventarios.onrender.com/reset-password?token=${encodeURIComponent(token)}`;
+    // Crear enlace seguro (usando https en producción)
+    const resetLink = `https://sistemagestiondeinventarios.onrender.com/reset-password?token=${encodeURIComponent(token)}`;
     
 
     await transporter.sendMail({
       from: "no-reply@tuapp.com",
       to: email,
-      subject: "Recuperación de contraseña Alfa y Omega",
-      html: `<p style="font-family: sans-serif; font-size: 16px; color: #333;">Hemos recibido una solicitud para restablecer la contraseña de tu cuenta. Para continuar, haz clic en el siguiente enlace (válido por 30 min):</p><br>
-             <a href="${resetLink}" style="color: #007bff; text-decoration: none;">${resetLink}</a><br>
-             <p style="font-family: sans-serif; font-size: 16px; color: #333;">Atentamente,</p><br>
-             <p style="font-family: sans-serif; font-size: 16px; color: #333;">Si no solicitaste este cambio, ignora este mensaje o contáctanos para asegurar la protección de tu cuenta.</p><br>
-             <p style="font-family: sans-serif; font-size: 16px; color: #333;">Alfa Y Omega</p>`,
+      subject: "Recuperación de contraseña",
+      html: `<p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p><a href="${resetLink}">${resetLink}</a><p>Este enlace es válido por 30 min.</p>`,
     });
 
     res.json({ message: "Si el correo existe, recibirás instrucciones para restablecer tu contraseña." });
