@@ -23,10 +23,10 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "https://sistemagestiondeinventarios.onrender.com"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://sistemagestiondeinventarios.onrender.com"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:"],
-      connectSrc: ["'self'", "https://sistemagestiondeinventarios.onrender.com", "https://inventorybackend-cv1q.onrender.com"],
+      connectSrc: ["'self'", "https://inventorybackend-cv1q.onrender.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       objectSrc: ["'none'"],
       upgradeInsecureRequests: [],
@@ -36,7 +36,7 @@ app.use(
 
 // Configuración de CORS más segura
 app.use(cors({
-    origin: "https://sistemagestiondeinventarios.onrender.com",
+    origin: "https://gestiondeinventarios.vercel.app/",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
