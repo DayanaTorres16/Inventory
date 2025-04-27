@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build && cp public/_redirects dist/ && cp public/index.html dist/200.html",
-  "lint": "eslint .",
-  "preview": "vite preview"
+   "dev": "vite",
+    "build": "vite build && cp public/_redirects dist/ && cp dist/index.html dist/200.html",
+    "lint": "eslint .",
+    "preview": "vite preview"
 },
 
   "dependencies": {
