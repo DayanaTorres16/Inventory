@@ -34,7 +34,7 @@ const AccountAdmin = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/auth/users");
+            const response = await fetch("https://inventorybackend-cv1q.onrender.com/api/auth/users");
             const data = await response.json();
             setUsers(data);
             setFilteredUsers(data); // Inicialmente, filteredUsers contiene todos los usuarios
@@ -45,7 +45,7 @@ const AccountAdmin = () => {
 
     const handleDelete = async (id) => {
         try {
-            await fetch(`http://localhost:5000/api/auth/users/${id}`, { method: "DELETE" });
+            await fetch(`https://inventorybackend-cv1q.onrender.com/api/auth/users/${id}`, { method: "DELETE" });
             setUsers(users.filter(user => user.ID_USUARIO !== id));
             setFilteredUsers(filteredUsers.filter(user => user.ID_USUARIO !== id));
             setShowDeletePopup(false);
@@ -56,7 +56,7 @@ const AccountAdmin = () => {
 
     const handleEdit = async () => {
         try {
-            await fetch(`http://localhost:5000/api/auth/users/${selectedUser.ID_USUARIO}`, {
+            await fetch(`https://inventorybackend-cv1q.onrender.com/api/auth/users/${selectedUser.ID_USUARIO}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(selectedUser)

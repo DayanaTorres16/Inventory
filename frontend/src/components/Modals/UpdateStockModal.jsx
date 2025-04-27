@@ -56,7 +56,7 @@ const UpdateStockModal = ({ isOpen, onClose, product, setProductos }) => {
             }
             
             if (Object.keys(updateData).length > 0) {
-                const response = await fetch(`http://localhost:5000/api/products/${product.ID_PRODUCTO}/update`, {
+                const response = await fetch(`https://inventorybackend-cv1q.onrender.com/api/products/${product.ID_PRODUCTO}/update`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const UpdateStockModal = ({ isOpen, onClose, product, setProductos }) => {
                 for (const id_producto_atributo in attributeStocks) {
                     if (selectedAttributes[id_producto_atributo]) { 
                         const newStock = attributeStocks[id_producto_atributo];
-                        const response = await fetch(`http://localhost:5000/api/products/producto_atributos/${id_producto_atributo}/stock`, {
+                        const response = await fetch(`https://inventorybackend-cv1q.onrender.com/api/products/producto_atributos/${id_producto_atributo}/stock`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -97,7 +97,7 @@ const UpdateStockModal = ({ isOpen, onClose, product, setProductos }) => {
                     stock: newAttributeStock
                 };
                 
-                const response = await fetch(`http://localhost:5000/api/products/${product.ID_PRODUCTO}/attributes`, {
+                const response = await fetch(`https://inventorybackend-cv1q.onrender.com/api/products/${product.ID_PRODUCTO}/attributes`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

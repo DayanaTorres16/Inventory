@@ -14,7 +14,7 @@ const Expensive = ({ storeId }) => {
             setLoading(true);
             setError(null);
             try {
-                const res = await axios.get(`http://localhost:5000/api/productsReport/expensive?storeId=${storeId}`);
+                const res = await axios.get(`https://inventorybackend-cv1q.onrender.com/api/productsReport/expensive?storeId=${storeId}`);
                 setDatos(res.data);
             } catch (err) {
                 setError(err.message);

@@ -17,7 +17,7 @@ const HighStock = ({ storeId }) => {
         setError(null);
 
         axios
-            .get(`http://localhost:5000/api/inventoryReport/maximum?storeId=${storeId}`)
+            .get(`https://inventorybackend-cv1q.onrender.com/api/inventoryReport/maximum?storeId=${storeId}`)
             .then((response) => {
                 console.log('Datos recibidos:', response.data);
                 setStockMaximo(response.data.length ? response.data : []);

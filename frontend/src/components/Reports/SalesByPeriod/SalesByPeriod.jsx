@@ -18,7 +18,7 @@ function SalesByPeriod({ storeId, dateRange }) {
     const formattedStartDate = new Date(dateRange.startDate).toISOString().split('T')[0];
     const formattedEndDate = new Date(dateRange.endDate).toISOString().split('T')[0];
 
-    fetch(`http://localhost:5000/api/salesReport/period?storeId=${storeId}&startDate=${formattedStartDate}&endDate=${formattedEndDate}`)
+    fetch(`https://inventorybackend-cv1q.onrender.com/api/salesReport/period?storeId=${storeId}&startDate=${formattedStartDate}&endDate=${formattedEndDate}`)
       .then(response => response.json())
       .then(data => {
         setVentas(data);

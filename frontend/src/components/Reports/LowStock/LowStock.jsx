@@ -17,7 +17,7 @@ const LowStock = ({ storeId }) => {
         setError(null);
 
         axios
-            .get(`http://localhost:5000/api/inventoryReport/minimum?storeId=${storeId}`)
+            .get(`https://inventorybackend-cv1q.onrender.com/api/inventoryReport/minimum?storeId=${storeId}`)
             .then((response) => {
                 console.log('Datos recibidos:', response.data);
                 setStockCritico(response.data.length ? response.data : []);

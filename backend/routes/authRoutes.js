@@ -11,7 +11,7 @@ const router = express.Router();
 
 const JWT_SECRET = process.env.JWT_SECRET || "clave_secreta_super_segura";
 
-// Función para validar que la contraseña cumple con los requisitos de seguridad
+//validar que la contraseña cumple con los requisitos de seguridad
 const validatePassword = (password) => {
   const hasUpperCase = /[A-Z]/.test(password);
   const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password);
@@ -23,7 +23,7 @@ const validatePassword = (password) => {
   return true;
 };
 
-// Función para formatear el tiempo restante (se usa en el mensaje, no para el cliente)
+// Función para formatear el tiempo restante
 const formatTimeRemaining = (timeInMs) => {
   const minutes = Math.floor(timeInMs / 60000);
   const seconds = Math.floor((timeInMs % 60000) / 1000);
@@ -37,36 +37,36 @@ const formatTimeRemaining = (timeInMs) => {
 
 // Configuración de rate limiters con mensajes dinámicos y envío de tiempo restante
 const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutos (en milisegundos)
-  max: 5, // 5 intentos por IP
+  windowMs: 15 * 60 * 1000, 
+  max: 5, 
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res, next, options) => {
     const timeRemainingMs = options.windowMs - (Date.now() % options.windowMs);
     res.status(429).json({
       message: `Demasiados intentos de inicio de sesión. No se permiten más intentos hasta dentro de ${formatTimeRemaining(timeRemainingMs)}.`,
-      retryAfterMs: timeRemainingMs // Envía el tiempo restante en milisegundos
+      retryAfterMs: timeRemainingMs 
     });
   }
 });
 
 const passwordResetLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hora
-  max: 3, // 3 intentos por hora
+  windowMs: 60 * 60 * 1000, 
+  max: 3, 
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res, next, options) => {
     const timeRemainingMs = options.windowMs - (Date.now() % options.windowMs);
     res.status(429).json({
       message: `Demasiadas solicitudes de recuperación. No se permiten más intentos hasta dentro de ${formatTimeRemaining(timeRemainingMs)}.`,
-      retryAfterMs: timeRemainingMs // Envía el tiempo restante en milisegundos
+      retryAfterMs: timeRemainingMs 
     });
   }
 });
 
 const registerLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hora
-  max: 3, // 3 registros por hora desde la misma IP
+  max: 3, 
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res, next, options) => {
@@ -160,7 +160,7 @@ router.post("/login", loginLimiter, loginValidations, async (req, res) => {
       [email]
     );
 
-    // Mensaje genérico para error de autenticación
+    // Mensaje para error de autenticación
     if (users.length === 0) {
       return res.status(401).json({ message: "Credenciales inválidas" });
     }
@@ -275,7 +275,7 @@ router.post("/password-reset", passwordResetLimiter, resetValidations, async (re
         pass: process.env.EMAIL_PASS,
       },
       tls: {
-        rejectUnauthorized: false  // Solo para desarrollo
+        rejectUnauthorized: false
       }
     });
 

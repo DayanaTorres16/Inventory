@@ -13,10 +13,10 @@ const CardsInventoryReport = ({ storeId }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const valueResponse = await axios.get(`http://localhost:5000/api/inventoryReport/total-value?storeId=${storeId}`);
+                const valueResponse = await axios.get(`https://inventorybackend-cv1q.onrender.com/api/inventoryReport/total-value?storeId=${storeId}`);
                 setTotalValue(valueResponse.data.valor_total_inventario ?? 0);
 
-                const quantityResponse = await axios.get(`http://localhost:5000/api/inventoryReport/total-quantity?storeId=${storeId}`);
+                const quantityResponse = await axios.get(`https://inventorybackend-cv1q.onrender.com/api/inventoryReport/total-quantity?storeId=${storeId}`);
                 setTotalQuantity(quantityResponse.data.cantidad_total_productos ?? 0);
             } catch (err) {
                 setError(err.message || 'Error al cargar los datos.');

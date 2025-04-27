@@ -17,7 +17,7 @@ const PasswordReset = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch("http://localhost:5000/api/auth/password-reset", {
+            const response = await fetch("https://inventorybackend-cv1q.onrender.com/api/auth/password-reset", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -30,6 +30,7 @@ const PasswordReset = () => {
             if (response.ok) {
                 setMessage(data.message || "Si el correo existe, recibirás instrucciones para restablecer tu contraseña.");
             } else if (response.status === 429) {
+                
                 // Mensaje específico para rate limiting
                 setError(data.message || "Demasiadas solicitudes. Intenta más tarde.");
             } else {

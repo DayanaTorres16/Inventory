@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User"); 
 const { body, validationResult } = require('express-validator');
-const xss = require('xss'); // Agregar esta dependencia
+const xss = require('xss'); 
 
 // Validaciones para login con sanitización adicional
 const loginValidations = [

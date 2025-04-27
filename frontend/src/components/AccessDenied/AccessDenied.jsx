@@ -21,6 +21,7 @@ const AccessDenied = () => {
                 <h2>Acceso Denegado</h2>
                 <p>Lo sentimos, no tienes permisos para acceder a esta página.</p>
                 <p>Por favor, verifica tus credenciales o contacta al administrador del sistema si crees que esto es un error.</p>
+                <p>Si necesitas ayuda, contáctanos en <a href="alfayomega@gmail.com">alfayomega@gmail.com</a>.</p>
                 <button onClick={handleVolverInicioSesion} className="access-denied-button">
                     Volver al inicio de sesión
                 </button>

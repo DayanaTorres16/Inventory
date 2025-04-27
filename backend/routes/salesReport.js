@@ -42,6 +42,7 @@ router.get('/period', validateDateParams, (req, res) => {
         res.json(results);
     });
 });
+
 //Reporte general
 //Ventas por producto
 router.get('/product', validateDateParams, (req, res) => {
@@ -62,7 +63,7 @@ router.get('/product', validateDateParams, (req, res) => {
         res.json(results);
     });
 });
-router.get('/low-rotation', validateDateParams, (req, res) => { // Corregido aquí
+router.get('/low-rotation', validateDateParams, (req, res) => {
     db.query(`
         SELECT p.NOMBRE AS nombre_producto, SUM(dv.CANTIDAD) AS cantidad_vendida
         FROM productos p
@@ -70,6 +71,7 @@ router.get('/low-rotation', validateDateParams, (req, res) => { // Corregido aqu
         JOIN venta v ON dv.ID_VENTA = v.ID_VENTA
         WHERE p.ID_TIENDA = ? AND DATE(v.FECHA_VENTA) BETWEEN ? AND ?
         GROUP BY p.NOMBRE
+        HAVING SUM(dv.CANTIDAD) < 25
         ORDER BY cantidad_vendida ASC
         LIMIT 10;
     `, [req.storeId, req.startDate, req.endDate], (err, results) => {
@@ -82,7 +84,7 @@ router.get('/low-rotation', validateDateParams, (req, res) => { // Corregido aqu
 });
 
 //Productos con alta rotación
-router.get('/high-rotation', validateDateParams, (req, res) => { // Corregido aquí
+router.get('/high-rotation', validateDateParams, (req, res) => { 
     db.query(`
         SELECT p.NOMBRE AS nombre_producto, SUM(dv.CANTIDAD) AS cantidad_vendida
         FROM productos p
@@ -90,6 +92,7 @@ router.get('/high-rotation', validateDateParams, (req, res) => { // Corregido aq
         JOIN venta v ON dv.ID_VENTA = v.ID_VENTA
         WHERE p.ID_TIENDA = ? AND DATE(v.FECHA_VENTA) BETWEEN ? AND ?
         GROUP BY p.NOMBRE
+        HAVING SUM(dv.CANTIDAD) > 25
         ORDER BY cantidad_vendida DESC
         LIMIT 10;
     `, [req.storeId, req.startDate, req.endDate], (err, results) => {
@@ -197,6 +200,7 @@ router.get('/high-rotation-attributes', validateDateParams, (req, res) => {
         JOIN atributos a ON pa.ID_ATRIBUTO = a.ID_ATRIBUTO
         WHERE p.ID_TIENDA = ? AND DATE(v.FECHA_VENTA) BETWEEN ? AND ?
         GROUP BY p.ID_PRODUCTO, pa.ID_PRODUCTO_ATRIBUTO
+        HAVING SUM(dv.CANTIDAD) > 25
         ORDER BY cantidad_vendida DESC
         LIMIT 10;
     `, [req.storeId, req.startDate, req.endDate], (err, results) => {
@@ -222,6 +226,7 @@ router.get('/low-rotation-attributes', validateDateParams, (req, res) => {
         JOIN atributos a ON pa.ID_ATRIBUTO = a.ID_ATRIBUTO
         WHERE p.ID_TIENDA = ? AND DATE(v.FECHA_VENTA) BETWEEN ? AND ?
         GROUP BY p.ID_PRODUCTO, pa.ID_PRODUCTO_ATRIBUTO
+        HAVING SUM(dv.CANTIDAD) < 25
         ORDER BY cantidad_vendida ASC
         LIMIT 10;
     `, [req.storeId, req.startDate, req.endDate], (err, results) => {

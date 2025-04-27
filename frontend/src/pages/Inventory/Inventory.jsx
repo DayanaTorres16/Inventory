@@ -30,7 +30,7 @@ const Inventory = () => {
         }
 
         setLoading(true);
-        fetch(`http://localhost:5000/api/products/${storeId}`)
+        fetch(`https://inventorybackend-cv1q.onrender.com/api/products/${storeId}`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`Error ${response.status}: ${response.statusText}`);
