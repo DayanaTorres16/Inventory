@@ -9,6 +9,7 @@
   "lint": "eslint .",
   "preview": "vite preview"
 },
+
   "dependencies": {
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
