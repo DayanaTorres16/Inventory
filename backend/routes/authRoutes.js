@@ -284,10 +284,25 @@ router.post("/password-reset", passwordResetLimiter, resetValidations, async (re
     
 
     await transporter.sendMail({
-      from: "no-reply@tuapp.com",
+      from: "Soporte de Alfa y Omega <no-reply@alfayomega.com>",
       to: email,
       subject: "Recuperación de contraseña",
-      html: `<p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p><a href="${resetLink}">${resetLink}</a><p>Este enlace es válido por 1 hora.</p>`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e6e6e6; border-radius: 5px;">
+          <p style="font-size: 16px; color: #444; margin-bottom: 20px;">Hola,</p>
+          <p style="font-size: 16px; color: #444; margin-bottom: 20px;">Recibimos una solicitud para restablecer la contraseña de tu cuenta en Gestion de Inventarios Alfa y Omega. Haz clic en el siguiente botón para crear una nueva contraseña:</p>
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${resetLink}" style="background-color: #4CAF50; color: white; padding: 12px 25px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block;">Restablecer contraseña</a>
+          </div>
+          <p style="font-size: 16px; color: #444; margin-bottom: 10px;">Si no puedes hacer clic en el botón, copia y pega el siguiente enlace en tu navegador:</p>
+          <p style="font-size: 14px; color: #666; word-break: break-all; margin-bottom: 20px;"><a href="${resetLink}" style="color: #2b7de9; text-decoration: none;">${resetLink}</a></p>
+          <p style="font-size: 16px; color: #444; margin-bottom: 20px;"><strong>Importante:</strong> Este enlace es válido por 30 minutos.</p>
+          <p style="font-size: 16px; color: #444; margin-bottom: 20px;">Si no solicitaste cambiar tu contraseña, puedes ignorar este correo o contactarnos si tienes alguna preocupación.</p>
+          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e6e6e6; color: #777; font-size: 14px;">
+            <p>Este es un correo automático. Por favor no respondas a este mensaje.</p>
+          </div>
+        </div>
+      `,
     });
 
     res.json({ message: "Si el correo existe, recibirás instrucciones para restablecer tu contraseña." });
